@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   is_blank.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 15:47:10 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/06/12 15:58:19 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/06/12 15:27:35 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/06/12 16:05:23 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/minishell.h"
 
-char	*get_prompt(void);
-int		is_blank(char *str);
-void	check_quotes(char *str);
-char	*join_strings(char **arr, int size, char *sep);
-#endif
+int	is_blank(char *str)
+{
+	char	*trimmed_str;
+
+	trimmed_str = ft_strtrim(str, " \n\v\f\r\t");
+	if (*trimmed_str)
+	{
+		free(trimmed_str);
+		return (0);
+	}
+	free(trimmed_str);
+	return (1);
+}
