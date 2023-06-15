@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_quotes.c                                     :+:      :+:    :+:   */
+/*   throw_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 22:54:05 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/06/02 23:04:43 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/06/12 16:25:25 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/06/12 16:28:33 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	check_quotes(char *str)
+void	trow_error(char *msg, int err_code)
 {
-	bool double_quote_open = false;
-	bool single_quote_open = false;
-
-	int i = 0;
-	while (str[i])
-	{
-		if (str[i] == '"')
-			double_quote_open = !double_quote_open;
-		else if (str[i] == '\'')
-			single_quote_open = !single_quote_open;
-		i++;
-	}
-
-	if (double_quote_open || single_quote_open)
-	{
-		printf("error");
-	}
+	ft_putstr_fd(msg, 2);
+	exit(err_code);
 }

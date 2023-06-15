@@ -6,17 +6,14 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:00:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/06/11 16:41:41 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:28:49 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include <sys/utsname.h>
 
 char	*get_prompt(void)
 {
-	char *ps1 = getenv("PS1");
-	printf("PS1 : %s\n", ps1);
 	// TODO
 	// parse the PS1 env variable
 	/*
@@ -44,9 +41,6 @@ char	*get_prompt(void)
 	\$: Prompt symbol ($ for regular users, # for root/superuser).
 	*/
 
-	char *host = getenv("HOST");
-	char *user = getenv("USER");
-	printf("host:%s\n", host);
-	return (join_strings((char *[]){user, "@", "host"}, 3, 0));
+	return ("./minishell:$> ");
 	//	return ("user@hostname:~/current_directory$ ");
 }
