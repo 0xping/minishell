@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   index_of.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 15:47:10 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/06/15 16:34:42 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/06/15 14:04:52 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/06/15 14:41:01 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/minishell.h"
 
-int		is_char_quoted(char *str, char *pos);
-char	*get_prompt(void);
-int		is_blank(char *str);
-char	check_quotes(char *str);
-char	*join_strings(char **arr, int size, char *sep);
-void	trow_error(char *msg, int err_code);
+/**
+ * index_of - Finds the first occurrence of the character c in the string str.
+ *
+ * @param str: The string to search.
+ * @param c: The character to search for.
+ *
+ * @return The index of the first occurrence of c in str, or
+	-1 if c is not found.
+ */
 int	index_of(char *str, char c)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
