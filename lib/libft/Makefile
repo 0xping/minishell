@@ -10,8 +10,8 @@ SRC = ft_atoi.c ft_isascii.c ft_memcpy.c ft_putstr_fd.c ft_strjoin.c ft_strncmp.
 
 OBJ = $(SRC:.c=.o)
 
-SRC_BONUS = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c ft_lstdelone_bonus.c \
-	ft_lstiter_bonus.c ft_lstlast_bonus.c ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
+SRC_BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
+	ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c
 
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
@@ -19,7 +19,6 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	@ar -rc $(NAME) $(OBJ)
-	@make clean
 
 bonus : $(NAME) $(OBJ_BONUS)
 	@ar -rc $(NAME) $(OBJ_BONUS)
