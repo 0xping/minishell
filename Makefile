@@ -25,6 +25,8 @@ all : $(NAME)
 
 $(LIBFT) : $(wildcard ./lib/libft/*.c)
 	@make -C ./lib/libft
+	@make -C ./lib/libft bonus
+	@make -C ./lib/libft clean
 
 $(NAME): $(SRC) $(LIB)
 	@echo "$(GREEN)\n⌛ Compiling $(NAME) ...$(END)"
