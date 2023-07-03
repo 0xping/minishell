@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/03 20:25:28 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/03 22:08:28 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(void)
 			continue ;
 		}
 		commands = lexer(input);
-		print(commands);
+		//print(commands);
 		ft_lstclear(&commands, del_command);
 		ft_free(input);
 	}
