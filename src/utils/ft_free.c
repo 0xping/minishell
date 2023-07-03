@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_blank.c                                         :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 15:27:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/03 19:50:17 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/07/03 19:47:19 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/07/03 19:50:45 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_blank(char *str)
+void	ft_free(void *ptr)
 {
-	char	*trimmed_str;
-
-	trimmed_str = ft_strtrim(str, " \n\v\f\r\t");
-	if (*trimmed_str)
+	if (ptr)
 	{
-		ft_free(trimmed_str);
-		return (0);
+		free(ptr);
+		ptr = 0;
 	}
-	ft_free(trimmed_str);
-	return (1);
 }
