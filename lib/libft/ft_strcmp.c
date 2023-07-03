@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_blank.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 15:27:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/03 19:50:17 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/07/03 13:27:34 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/07/03 13:28:03 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	is_blank(char *str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	char	*trimmed_str;
+	size_t	i;
 
-	trimmed_str = ft_strtrim(str, " \n\v\f\r\t");
-	if (*trimmed_str)
+	i = 0;
+	while (s1[i] || s2[i])
 	{
-		ft_free(trimmed_str);
-		return (0);
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
-	ft_free(trimmed_str);
-	return (1);
+	return (0);
 }

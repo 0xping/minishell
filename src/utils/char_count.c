@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_blank.c                                         :+:      :+:    :+:   */
+/*   char_count.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 15:27:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/03 19:50:17 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/06/23 16:28:25 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/06/23 16:29:41 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-int	is_blank(char *str)
+int	char_count(char *str, char c)
 {
-	char	*trimmed_str;
+	int	count;
+	int	i;
 
-	trimmed_str = ft_strtrim(str, " \n\v\f\r\t");
-	if (*trimmed_str)
+	count = 0;
+	i = 0;
+	while (str[i])
 	{
-		ft_free(trimmed_str);
-		return (0);
+		if (str[i] == c)
+			count++;
+		i++;
 	}
-	ft_free(trimmed_str);
-	return (1);
+	return (count);
 }
