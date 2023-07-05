@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 16:36:50 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:38:18 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,31 @@
 void	print(t_list *cmds)
 {
 	t_command	*cmd_cnt;
-	t_token		*token_cnt;
+	// t_token		*token_cnt;
 
 	for (t_list *i = cmds; i; i = i->next)
 	{
-		printf("------------command-----------------\n");
+		printf("---------------------------------   command   ---------------------------------\n");
 		cmd_cnt = (t_command *)i->content;
-		printf("==> %s\n   tokens :\n", cmd_cnt->value);
-		for (t_list *j = cmd_cnt->lst_tokens; j; j = j->next)
-		{
-			token_cnt = (t_token *)j->content;
-			printf("          %s\n", token_cnt->value);
-		}
-		printf("--------------------------------------\n\n\n");
+		// printf("==> %s\n   tokens :\n", cmd_cnt->value);
+		// for (t_list *j = cmd_cnt->lst_tokens; j; j = j->next)
+		// {
+		// 	token_cnt = (t_token *)j->content;
+		// 	printf("%s, ", token_cnt->value);
+		// }
+		printf("command:\t");
+		for (int i = 0; cmd_cnt->command && cmd_cnt->command[i]; i++)
+			printf("%s  ",cmd_cnt->command[i]);
+
+		printf("\nfiles:\t");
+		for (t_list *i = cmd_cnt->files ; i; i = i->next)
+			printf("%s[%d] ",((t_file *)i->content)->name,((t_file *)i->content)->type);
+
+		printf("\ndelimiters:\t");
+		for (int i = 0; cmd_cnt->delimiters&& cmd_cnt->delimiters[i]; i++)
+			printf("%s ",cmd_cnt->delimiters[i]);
+
+		printf("\n\n\n");
 	}
 }
 
@@ -62,10 +74,10 @@ int	main(void)
 		{
 			//execute
 		}
-		//print(commands);
+		print(commands);
 		ft_lstclear(&commands, del_command);
 		ft_free(input);
-		//system("leaks minishell");
+	//	system("leaks minishell");
 	}
 	return (0);
 }

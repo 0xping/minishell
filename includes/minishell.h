@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:58:47 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:53:05 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/05 21:04:08 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,6 @@ typedef struct s_file
 	red_type	type;
 }				t_file;
 
-typedef struct s_token_counter
-{
-	int			in_op;
-	int			in_file;
-	int			out_op;
-	int			out_file;
-	int			append_op;
-	int			append_file;
-	int			heredoc_op;
-	int			heredoc_del;
-
-}				t_token_counter;
-
 typedef struct s_command
 {
 	char		*value;
@@ -79,6 +66,7 @@ typedef struct s_command
 		int		heredoc_op;
 		int		heredoc_del;
 	} tk_count;
+	char		**command;
 	char		**delimiters;
 	t_list		*files;
 }				t_command;
@@ -97,3 +85,5 @@ extern t_global	g_vars;
 # include "./parser.h"
 
 #endif
+
+

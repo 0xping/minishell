@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:47:10 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:44:45 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:56:49 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ char	**split_quote_safe(char *cmd, char *dels, bool handle_empty_str);
 int		char_count(char *str, char c);
 char	*char_to_str(char c);
 void	throw_error(char *msg, int err_code);
+int	push_str(char ***ptr_arr, char *str);
+
 
 #endif
