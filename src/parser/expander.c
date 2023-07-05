@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   throw_error.c                                      :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 16:25:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:49:11 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/07/05 15:45:05 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	throw_error(char *msg, int err_code)
+char	*expander(char *word)
 {
-	ft_putendl_fd(msg, 2);
-	g_vars.exit_status = err_code;
+	int		i;
+	char	*result;
+
+	i = 0;
+	result = ft_strdup("");
+	while (word[i])
+	{
+		i++;
+	}
+	return (result);
 }

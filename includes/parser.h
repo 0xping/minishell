@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   throw_error.c                                      :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 16:25:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:49:11 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/07/04 13:46:14 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/07/05 15:44:41 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-void	throw_error(char *msg, int err_code)
-{
-	ft_putendl_fd(msg, 2);
-	g_vars.exit_status = err_code;
-}
+int		parser(t_list *cmds);
+int		check_parse_error(t_list *cmds);
+void	count_tokens(t_command *cmd);
+
+#endif
