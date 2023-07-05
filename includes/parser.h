@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/02 17:13:46 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/04 18:17:59 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/07/04 13:46:14 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/07/05 15:44:41 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#ifndef PARSER_H
+# define PARSER_H
 
-void			add_new_token(t_list **lst_tokens, char *token);
-t_command		*create_command_node(char *cmd);
-char			*spread_tokens(char *str);
-t_list			*lexer(char *input);
-void			del_command(void *content);
-void			del_tokens(void *content);
+int		parser(t_list *cmds);
+int		check_parse_error(t_list *cmds);
+void	count_tokens(t_command *cmd);
 
 #endif
