@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/03 22:08:28 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:36:50 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	print(t_list *cmds)
 		printf("--------------------------------------\n\n\n");
 	}
 }
+
+t_global g_vars;
 
 int	main(void)
 {
@@ -56,9 +58,14 @@ int	main(void)
 			continue ;
 		}
 		commands = lexer(input);
+		if(parser(commands))
+		{
+			//execute
+		}
 		//print(commands);
 		ft_lstclear(&commands, del_command);
 		ft_free(input);
+		//system("leaks minishell");
 	}
 	return (0);
 }
