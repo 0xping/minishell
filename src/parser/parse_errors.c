@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:32:05 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 15:46:41 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:50:32 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	check_parse_error(t_list *cmds)
 	{
 		content = ((t_command *)i->content);
 		count_tokens(content);
+		if (check_quotes(content->value))
+		{
+			throw_error("minishell: unclosed quote", 1);
+			return (0);
+		}
 		if (!ft_strlen(content->value)
 			|| content->tk_count.append_file != content->tk_count.append_op
 			|| content->tk_count.heredoc_del != content->tk_count.heredoc_op
