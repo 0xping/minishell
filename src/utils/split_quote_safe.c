@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:19:34 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/06 18:02:16 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:05:47 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static size_t	count_chunks(char *cmd, char *dels)
 {
 	size_t	i;
 	size_t	result;
-	bool	cond;
 
 	i = 0;
 	result = 0;
