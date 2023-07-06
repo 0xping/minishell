@@ -6,13 +6,31 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:19:34 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/06 11:29:08 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:02:16 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static size_t	count_chunks(char *cmd, char *dels, bool handle_empty_str)
+static size_t	count_chunks_non_empty(char *cmd, char *dels)
+{
+	size_t	i;
+	size_t	result;
+
+	i = 0;
+	result = 0;
+	while (cmd[i])
+	{
+		if ((i == 0 && !ft_strchr(dels, cmd[i])) || (ft_strchr(dels, cmd[i])
+				&& !ft_strchr(dels, cmd[i + 1]) && cmd[i + 1]
+				&& !is_char_quoted(cmd, &cmd[i])))
+			result++;
+		i++;
+	}
+	return (result);
+}
+
+static size_t	count_chunks(char *cmd, char *dels)
 {
 	size_t	i;
 	size_t	result;
@@ -22,19 +40,11 @@ static size_t	count_chunks(char *cmd, char *dels, bool handle_empty_str)
 	result = 0;
 	while (cmd[i])
 	{
-		if (handle_empty_str && !is_char_quoted(cmd, &cmd[i]))
-			cond = ft_strchr(dels, cmd[i]);
-		else
-			cond = (i == 0 && !ft_strchr(dels, cmd[i])) || (ft_strchr(dels,
-						cmd[i]) && !ft_strchr(dels, cmd[i + 1]) && cmd[i + 1]
-					&& !is_char_quoted(cmd, &cmd[i]));
-		if (cond)
+		if (ft_strchr(dels, cmd[i]) && !is_char_quoted(cmd, &cmd[i]))
 			result++;
 		i++;
 	}
-	if (handle_empty_str)
-		return (result + 1);
-	return (result);
+	return (result + 1);
 }
 
 static void	fill_arr_handel_empty(size_t words, char *s, char *dels,
@@ -98,8 +108,10 @@ char	**split_quote_safe(char *cmd, char *dels, bool handle_empty_str)
 
 	if (!cmd)
 		return (0);
-	slices = count_chunks(cmd, dels, handle_empty_str);
-	printf("-->%zu\n", slices);
+	if (handle_empty_str)
+		slices = count_chunks(cmd, dels);
+	else
+		slices = count_chunks_non_empty(cmd, dels);
 	result = ft_calloc(slices + 1, sizeof(char *));
 	if (result)
 	{
