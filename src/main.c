@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 23:38:18 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:19:05 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ void	print(t_list *cmds)
 		for (t_list *i = cmd_cnt->files ; i; i = i->next)
 			printf("%s[%d] ",((t_file *)i->content)->name,((t_file *)i->content)->type);
 
-		printf("\ndelimiters:\t");
-		for (int i = 0; cmd_cnt->delimiters&& cmd_cnt->delimiters[i]; i++)
-			printf("%s ",cmd_cnt->delimiters[i]);
-
 		printf("\n\n\n");
 	}
 }
@@ -58,6 +54,7 @@ int	main(void)
 	while (1)
 	{
 		input = readline(prompt);
+		add_history(input);
 		tmp = ft_strtrim(input, " \n\v\f\r\t");
 		ft_free(input);
 		input = tmp;
@@ -73,11 +70,12 @@ int	main(void)
 		if(parser(commands))
 		{
 			//execute
+			executer(commands);
 		}
-		print(commands);
+		//print(commands);
 		ft_lstclear(&commands, del_command);
 		ft_free(input);
-	//	system("leaks minishell");
+		//system("leaks minishell");
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:05:36 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 21:52:19 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:58:32 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	collect_files_and_delimiters(t_command *cmd)
 			ft_lstadd_back(&cmd->files, ft_lstnew(init_file(token->value,
 							RED_OUT)));
 		if (token->type == TK_HEREDOC_DEL)
-			push_str(&cmd->delimiters, token->value);
+			ft_lstadd_back(&cmd->files, ft_lstnew(init_file(token->value,
+							RED_HEREDOC)));
 		if (token->type == TK_WORD)
 			push_str(&cmd->command, token->value);
 		lst_token = lst_token->next;

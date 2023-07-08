@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:00:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/06/12 15:28:49 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:04:07 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ char	*get_prompt(void)
 	\$: Prompt symbol ($ for regular users, # for root/superuser).
 	*/
 
-	return ("./minishell:$> ");
+	return ("minishell:$ ");
 	//	return ("user@hostname:~/current_directory$ ");
 }

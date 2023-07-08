@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:58:47 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 21:04:08 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:38:43 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <fcntl.h>
+#include <signal.h>
 # include "./lib.h"
 
 typedef struct s_global
@@ -43,6 +45,7 @@ typedef enum
 	RED_IN,
 	RED_APPEND,
 	RED_OUT,
+	RED_HEREDOC
 }				red_type;
 
 typedef struct s_file
@@ -67,8 +70,8 @@ typedef struct s_command
 		int		heredoc_del;
 	} tk_count;
 	char		**command;
-	char		**delimiters;
 	t_list		*files;
+	int			*fd;
 }				t_command;
 
 typedef struct s_token
@@ -83,6 +86,7 @@ extern t_global	g_vars;
 # include "./builtins.h"
 # include "./lexer.h"
 # include "./parser.h"
+#include "./executer.h"
 
 #endif
 
