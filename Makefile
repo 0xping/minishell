@@ -9,7 +9,7 @@ BOLD = \033[1m
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -lreadline
+CFLAGS = -Wall -Wextra -Werror -lreadline -L$(shell  brew --prefix readline)/lib # /goinfre/aait-lfd/homebrew/opt/readline/lib
 
 # Target name
 NAME = minishell

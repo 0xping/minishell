@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/08 14:19:05 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:56:41 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	print(t_list *cmds)
 {
 	t_command	*cmd_cnt;
-	// t_token		*token_cnt;
 
+	// t_token		*token_cnt;
 	for (t_list *i = cmds; i; i = i->next)
 	{
 		printf("---------------------------------   command   ---------------------------------\n");
@@ -29,17 +29,24 @@ void	print(t_list *cmds)
 		// }
 		printf("command:\t");
 		for (int i = 0; cmd_cnt->command && cmd_cnt->command[i]; i++)
-			printf("%s  ",cmd_cnt->command[i]);
-
+			printf("%s  ", cmd_cnt->command[i]);
 		printf("\nfiles:\t");
-		for (t_list *i = cmd_cnt->files ; i; i = i->next)
-			printf("%s[%d] ",((t_file *)i->content)->name,((t_file *)i->content)->type);
-
+		for (t_list *i = cmd_cnt->files; i; i = i->next)
+			printf("%s[%d] ", ((t_file *)i->content)->name,
+				((t_file *)i->content)->type);
 		printf("\n\n\n");
 	}
 }
 
-t_global g_vars;
+t_global	g_vars;
+
+void	init_global_vars(void)
+{
+	g_vars.exit_status = 0;
+	g_vars.heredoc_sig = 0;
+}
+
+void		rl_replace_line(const char *text, int clear_undo);
 
 int	main(void)
 {
@@ -50,10 +57,15 @@ int	main(void)
 	char	*tmp;
 
 	i = 0;
+	init_global_vars();
+	signal(SIGINT, sigint_handler);
+	// set_signal_printing();
 	prompt = get_prompt();
 	while (1)
 	{
-		input = readline(prompt);
+		input = readline(get_prompt());
+		if (input == 0)
+			break ;
 		add_history(input);
 		tmp = ft_strtrim(input, " \n\v\f\r\t");
 		ft_free(input);
@@ -67,15 +79,16 @@ int	main(void)
 			continue ;
 		}
 		commands = lexer(input);
-		if(parser(commands))
+		if (parser(commands))
 		{
-			//execute
+			// execute
 			executer(commands);
 		}
-		//print(commands);
+		// print(commands);
 		ft_lstclear(&commands, del_command);
 		ft_free(input);
-		//system("leaks minishell");
+		// system("leaks minishell");
+		// system("lsof minishell");
 	}
 	return (0);
 }

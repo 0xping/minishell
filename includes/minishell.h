@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:58:47 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/08 14:38:43 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:53:39 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,16 @@
 # include <unistd.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <termios.h>
 # include "./lib.h"
+
+void		rl_replace_line(const char *text, int clear_undo);
+
 
 typedef struct s_global
 {
 	int			exit_status;
+	int			heredoc_sig;
 }				t_global;
 
 typedef enum
