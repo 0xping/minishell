@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/10 17:56:41 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/12 10:22:41 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ int	main(void)
 	while (1)
 	{
 		input = readline(get_prompt());
-		if (input == 0)
-			break ;
-		add_history(input);
+		if (!input || *input)
+		{
+			if (!input)
+				break ;
+			add_history(input);
+		}
 		tmp = ft_strtrim(input, " \n\v\f\r\t");
 		ft_free(input);
 		input = tmp;
