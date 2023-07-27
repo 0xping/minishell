@@ -6,25 +6,25 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:58:47 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/10 17:53:39 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:34:43 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <fcntl.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <termios.h>
 # include <unistd.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <termios.h>
 # include "./lib.h"
 
-void		rl_replace_line(const char *text, int clear_undo);
-
+void			del_command(void *content);
+void			rl_replace_line(const char *text, int clear_undo);
 
 typedef struct s_global
 {
@@ -87,12 +87,10 @@ typedef struct s_token
 
 extern t_global	g_vars;
 
-# include "./utils.h"
 # include "./builtins.h"
+# include "./executer.h"
 # include "./lexer.h"
 # include "./parser.h"
-#include "./executer.h"
+# include "./utils.h"
 
 #endif
-
-
