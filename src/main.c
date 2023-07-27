@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/12 10:22:41 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:25:43 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	init_global_vars(void)
 	g_vars.exit_status = 0;
 	g_vars.heredoc_sig = 0;
 }
-
-void		rl_replace_line(const char *text, int clear_undo);
 
 int	main(void)
 {
