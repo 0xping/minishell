@@ -6,44 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 17:13:48 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/08 14:48:02 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:32:11 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// free t_token content
-void	del_tokens(void *content)
-{
-	t_token	*casted_content;
-
-	casted_content = (t_token *)content;
-	ft_free(casted_content->value);
-	ft_free(casted_content);
-}
-
-
-// free t_command content
-void	del_command(void *content)
-{
-	t_command	*casted_content;
-
-	casted_content = (t_command *)content;
-	ft_lstclear(&casted_content->lst_tokens, del_tokens);
-	ft_free(casted_content->value);
-
-	ft_free(casted_content->command);
-	ft_free(casted_content->fd);
-	t_list *files = casted_content->files;
-	while (files)
-	{
-		ft_free(files->content);
-		files = files->next;
-	}
-	ft_free(casted_content->files);
-	ft_free(casted_content);
-
-}
 
 void	add_new_token(t_list **lst_tokens, char *token)
 {
@@ -95,7 +62,6 @@ t_command	*create_command_node(char *cmd)
 		ft_free(tokens[i++]);
 	}
 	ft_free(tokens);
-
 	return (command);
 }
 
