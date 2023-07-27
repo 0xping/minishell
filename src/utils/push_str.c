@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 18:10:00 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/05 19:35:03 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:27:40 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ int	push_str(char ***ptr_arr, char *str)
 		i++;
 	}
 	new_arr[i] = str;
-	free(*ptr_arr);
+	ft_free(*ptr_arr);
 	*ptr_arr = new_arr;
-	return 1;
+	return (1);
 }
-
