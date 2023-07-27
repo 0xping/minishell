@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/08 15:35:35 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:22:08 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,14 @@ static void	open_file(t_file *file, int **fd)
 	int		file_fd;
 	char	*err_prompt;
 
-	 if(!ft_strcmp(file->name,"/dev/stdin"))
+	if (!ft_strcmp(file->name, "/dev/stdin"))
 		file_fd = 0;
-	else if(!ft_strcmp(file->name,"/dev/stdout"))
+	else if (!ft_strcmp(file->name, "/dev/stdout"))
 		file_fd = 1;
-	else if(!ft_strcmp(file->name,"/dev/stderr"))
+	else if (!ft_strcmp(file->name, "/dev/stderr"))
 		file_fd = 2;
 	else
 		file_fd = open(file->name, get_oflag(file->type), 0644);
-
 	if (file_fd == -1)
 	{
 		err_prompt = ft_strjoin("minishell: ", file->name);
@@ -48,16 +47,12 @@ static void	open_file(t_file *file, int **fd)
 	{
 		((*fd)[0] != 0 && (*fd)[0] != 1 && (*fd)[0] != 2) && (close((*fd)[0]));
 		(*fd)[0] = file_fd;
-		if(file->type == RED_HEREDOC)
-			ft_free(file->name);
-
 	}
-	else if(file->type == RED_OUT || file->type == RED_APPEND)
+	else if (file->type == RED_OUT || file->type == RED_APPEND)
 	{
 		((*fd)[1] != 0 && (*fd)[1] != 1 && (*fd)[1] != 2) && (close((*fd)[1]));
 		(*fd)[1] = file_fd;
 	}
-
 }
 
 void	set_redirections(t_list *cmd_list)
