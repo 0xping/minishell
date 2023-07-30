@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:54:05 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/06 18:50:00 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/30 02:22:08 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,52 @@ char	check_quotes(char *str)
 	return (0);
 }
 
-int	is_char_quoted(char *str, char *pos)
+int	is_char_single_quoted(char *str, char *pos)
 {
-	bool	double_quote_status;
 	bool	single_quote_status;
 
-	double_quote_status = false;
 	single_quote_status = false;
 	while (str)
 	{
 		if (str == pos)
 		{
-			if (*str == '"' || *str == '\'')
+			if (*str == '\'')
 				return (1);
-			return (double_quote_status || single_quote_status);
+			return (single_quote_status);
 		}
-		if (*str == '"')
-			double_quote_status = !double_quote_status;
 		else if (*str == '\'')
 			single_quote_status = !single_quote_status;
 		str++;
 	}
 	return (0);
+}
+
+int	is_char_double_quoted(char *str, char *pos)
+{
+	bool	double_quote_status;
+
+	double_quote_status = false;
+	while (str)
+	{
+		if (str == pos)
+		{
+			if (*str == '"')
+				return (1);
+			return (double_quote_status);
+		}
+		else if (*str == '"')
+			double_quote_status = !double_quote_status;
+		str++;
+	}
+	return (0);
+}
+
+int	is_char_quoted(char *str, char *pos)
+{
+	bool	double_quote_status;
+	bool	single_quote_status;
+
+	double_quote_status = is_char_double_quoted(str, pos);
+	single_quote_status = is_char_single_quoted(str, pos);
+	return (double_quote_status || single_quote_status);
 }
