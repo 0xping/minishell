@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 18:32:05 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/06 18:50:32 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/30 02:03:20 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_parse_error(t_list *cmds)
 		count_tokens(content);
 		if (check_quotes(content->value))
 		{
-			throw_error("minishell: unclosed quote", 1);
+			throw_error("unclosed quote", 1);
 			return (0);
 		}
 		if (!ft_strlen(content->value)
@@ -33,7 +33,7 @@ int	check_parse_error(t_list *cmds)
 			|| content->tk_count.in_file != content->tk_count.in_op
 			|| content->tk_count.out_file != content->tk_count.out_op)
 		{
-			throw_error("minishell: parse error", 258);
+			throw_error("parse error", 258);
 			return (0);
 		}
 		i = i->next;
