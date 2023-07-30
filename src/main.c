@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/27 20:25:43 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/30 02:53:13 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ void	print(t_list *cmds)
 
 t_global	g_vars;
 
-void	init_global_vars(void)
+void	init_global_vars(const char *envp[])
 {
 	g_vars.exit_status = 0;
 	g_vars.heredoc_sig = 0;
+	g_vars.env = create_env_list(envp);
+	ft_pwd(1);
 }
 
-int	main(void)
+int	main(int ac, char const *av[], char const *envp[])
 {
 	char	*input;
 	char	*prompt;
@@ -54,8 +56,10 @@ int	main(void)
 	int		i;
 	char	*tmp;
 
+	ac += 0;
+	av += 0;
 	i = 0;
-	init_global_vars();
+	init_global_vars(envp);
 	signal(SIGINT, sigint_handler);
 	// set_signal_printing();
 	prompt = get_prompt();
