@@ -1,6 +1,9 @@
 .vscode
 minishell
 test.c
+t.c
+.DS_Store
+
 # Prerequisites
 *.d
 
