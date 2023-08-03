@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:54:05 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/30 02:22:08 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:57:29 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_char_single_quoted(char *str, char *pos)
 		if (str == pos)
 		{
 			if (*str == '\'')
-				return (1);
+				return (0);
 			return (single_quote_status);
 		}
 		else if (*str == '\'')
@@ -64,7 +64,7 @@ int	is_char_double_quoted(char *str, char *pos)
 		if (str == pos)
 		{
 			if (*str == '"')
-				return (1);
+				return (0);
 			return (double_quote_status);
 		}
 		else if (*str == '"')
