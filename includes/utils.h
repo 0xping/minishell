@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:47:10 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/30 02:10:09 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/03 04:41:35 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	throw_error(char *msg, int err_code);
 int		push_str(char ***ptr_arr, char *str);
 int		is_char_single_quoted(char *str, char *pos);
 int		is_char_double_quoted(char *str, char *pos);
+void	push_char_to_str(char **str, char c);
 
 #endif
