@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   push_char_to_str.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/04 13:46:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 00:42:01 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/08/03 04:41:53 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/08/04 00:50:30 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "../../includes/minishell.h"
 
-int		parser(t_list *cmds);
-int		check_parse_error(t_list *cmds);
-void	count_tokens(t_command *cmd);
-void	collect_files_and_delimiters(t_command *cmd);
-char	*expander(char *word, bool expand);
-#endif
+void	push_char_to_str(char **str, char c)
+{
+	char	*c_as_str;
+	char	*tmp;
+
+	c_as_str = char_to_str(c);
+	tmp = *str;
+	*str = ft_strjoin(*str, c_as_str);
+	ft_free(tmp);
+	ft_free(c_as_str);
+}
