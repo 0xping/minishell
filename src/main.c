@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/30 02:53:13 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/04 04:08:40 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	init_global_vars(const char *envp[])
 {
 	g_vars.exit_status = 0;
 	g_vars.heredoc_sig = 0;
+	g_vars.pid = getpid();
 	g_vars.env = create_env_list(envp);
-	ft_pwd(1);
 }
 
 int	main(int ac, char const *av[], char const *envp[])
