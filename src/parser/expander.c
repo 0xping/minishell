@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 00:41:03 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/04 03:59:29 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@ char	*get_var_value(char *var, int *ptr_i)
 		i++;
 	*ptr_i += i;
 	var_name = ft_substr(var, 0, i);
+	if (*var_name == 0)
+	{
+		*ptr_i += 1;
+		ft_free(var_name);
+		if (var[i] == '$')
+			return (ft_itoa(g_vars.pid));
+		if (var[i] == '?')
+			return (ft_itoa(g_vars.exit_status));
+	}
 	env_node = get_env_by_name(var_name);
 	free(var_name);
 	if (env_node)
@@ -89,7 +98,8 @@ char	*expander(char *word, bool expand)
 				word[i] *= -1;
 			}
 		}
-		else if (word[i] == '$' && expand && should_expand(word, word + i))
+		else if (word[i] == '$' && word[i + 1] && expand && should_expand(word,
+				word + i))
 			freeable_join(&result, get_var_value(word + i + 1, &i));
 		else
 			push_char_to_str(&result, word[i]);
