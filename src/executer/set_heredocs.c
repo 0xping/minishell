@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/27 22:29:50 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/04 04:29:16 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	create_heredoc_file(t_file *file, int index)
 	char	*file_name;
 	int		fd;
 	char	*line;
+	char	*tmp;
 
 	file_name = get_heredoc_filename(file->name, index);
 	fd = open(file_name, O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0644);
@@ -47,7 +48,15 @@ static void	create_heredoc_file(t_file *file, int index)
 		if (line == 0)
 			break ;
 		if (ft_strcmp(line, file->name))
+		{
+			if (!ft_strchr(line, '"') && !ft_strchr(line, '\''))
+			{
+				tmp = line;
+				line = expander(line, true);
+				ft_free(tmp);
+			}
 			ft_putendl_fd(line, fd);
+		}
 		ft_free(line);
 	}
 	close(fd);
