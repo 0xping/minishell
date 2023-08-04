@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:16:59 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/07/30 02:42:49 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/04 19:02:11 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	echo_print(char *str, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\\')
-		{
-			if (str[i + 1] == 'n')
-				ft_putchar_fd('\n', fd);
-			if (str[i + 1] == 't')
-				ft_putchar_fd('\t', fd);
-			i += 2;
-		}
-		ft_putchar_fd(str[i], fd);
-		i++;
-	}
-}
 
 bool	is_n_option(char *str)
 {
@@ -60,7 +40,7 @@ void	ft_echo(char **args, int fd)
 	}
 	while (args[i])
 	{
-		echo_print(args[i], fd);
+		ft_putstr_fd(args[i], fd);
 		if (args[i + 1])
 			ft_putchar_fd(' ', fd);
 		i++;
@@ -68,12 +48,3 @@ void	ft_echo(char **args, int fd)
 	if (!n_flag)
 		ft_putchar_fd('\n', fd);
 }
-
-// int	main(int argc, char const *argv[])
-// {
-// 	char	**d;
-
-// 	d = ft_split("-nn -nnnnnn hello -n ", ' ');
-// 	ft_echo(d, 1);
-// 	return (0);
-// }
