@@ -6,11 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:05:36 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/27 17:23:23 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/inc.h"
 
 t_file	*init_file(char *name, red_type type)
 {

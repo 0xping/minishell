@@ -6,11 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:16:59 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/04 19:02:11 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/inc.h"
 
 bool	is_n_option(char *str)
 {

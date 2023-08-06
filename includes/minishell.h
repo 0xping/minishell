@@ -5,23 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 23:58:47 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 04:01:16 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/08/06 21:33:35 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/08/06 21:33:41 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <signal.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <termios.h>
-# include <unistd.h>
-# include "./lib.h"
 
 void			del_command(void *content);
 void			rl_replace_line(const char *text, int clear_undo);
@@ -88,11 +78,5 @@ typedef struct s_token
 }				t_token;
 
 extern t_global	g_vars;
-
-# include "./builtins.h"
-# include "./executer.h"
-# include "./lexer.h"
-# include "./parser.h"
-# include "./utils.h"
 
 #endif

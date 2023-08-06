@@ -6,11 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 22:54:05 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/03 21:57:29 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/inc.h"
 
 char	check_quotes(char *str)
 {

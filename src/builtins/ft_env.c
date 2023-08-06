@@ -6,11 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/inc.h"
 
 t_env	*new_env_node(char *name, char *value)
 {

@@ -6,11 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 19:47:19 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 18:58:19 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/inc.h"
 
 void	ft_free(void **ptr)
 {

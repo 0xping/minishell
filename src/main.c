@@ -6,11 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/inc.h"
 
 void	print(t_list *cmds)
 {
@@ -89,7 +89,7 @@ int	main(int ac, char const *av[], char const *envp[])
 			// execute
 			executer(commands);
 		}
-		// print(commands);
+		print(commands);
 		ft_lstclear(&commands, del_command);
 		ft_free((void **)&input);
 		// system("leaks minishell");

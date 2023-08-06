@@ -6,15 +6,17 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:37:46 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/06/23 16:39:54 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/inc.h"
 
 char	*char_to_str(char c)
 {
-	char *str = ft_calloc(2, sizeof(char));
+	char	*str;
+
+	str = ft_calloc(2, sizeof(char));
 	*str = c;
 	return (str);
 }
