@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 03:59:29 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 16:47:47 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	is_char_special(char c)
 {
 	char	*special_characters;
 
-	special_characters = "$!#%*(){}[]\"'|\\;:,<>?&=+-n \t \n";
+	special_characters = "$!#%*(){}[]\"'|\\;:,<>?&=+- \t\n";
 	return (ft_strchr(special_characters, c));
 }
 
@@ -25,8 +25,16 @@ char	*get_var_value(char *var, int *ptr_i)
 	int		i;
 	char	*var_name;
 	t_env	*env_node;
+	char	*var_as_str;
+	char	*s;
 
 	i = 0;
+	if (var[i] == '"' || var[i] == '\'')
+	{
+		var_name = ft_substr(var, 1, ft_strchr(var + 1, var[i]) - var - 1);
+		*ptr_i += ft_strlen(var_name) + 1;
+		return (var_name);
+	}
 	while (var[i] && !is_char_special(var[i]))
 		i++;
 	*ptr_i += i;
@@ -35,13 +43,15 @@ char	*get_var_value(char *var, int *ptr_i)
 	{
 		*ptr_i += 1;
 		ft_free(var_name);
-		if (var[i] == '$')
-			return (ft_itoa(g_vars.pid));
 		if (var[i] == '?')
 			return (ft_itoa(g_vars.exit_status));
+		var_as_str = char_to_str(var[i]);
+		s = ft_strjoin("$", var_as_str);
+		ft_free(var_as_str);
+		return (s);
 	}
 	env_node = get_env_by_name(var_name);
-	free(var_name);
+	ft_free(var_name);
 	if (env_node)
 		return (ft_strdup(env_node->value));
 	return (ft_strdup(""));
@@ -100,7 +110,9 @@ char	*expander(char *word, bool expand)
 		}
 		else if (word[i] == '$' && word[i + 1] && expand && should_expand(word,
 				word + i))
+		{
 			freeable_join(&result, get_var_value(word + i + 1, &i));
+		}
 		else
 			push_char_to_str(&result, word[i]);
 		i++;
