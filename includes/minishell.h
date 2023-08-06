@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 23:58:47 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 04:01:16 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/07/30 02:35:19 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_global
 {
 	int			exit_status;
 	int			heredoc_sig;
-	pid_t		pid;
 	t_list		*env;
 }				t_global;
 

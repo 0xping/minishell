@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: xshel <xshel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:20:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/10 17:55:35 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/01 08:48:52 by xshel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,6 @@ void	executer(t_list *cmd_list);
 void	set_redirections(t_list *cmd_list);
 void	set_heredocs(t_list *cmd_list);
 void	sigint_handler(int sigint);
+char	*get_path(char *cmd, int fd);
 
 #endif
