@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 04:29:16 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_heredoc_filename(char *del, int index)
 	index_as_str = char_to_str(index + '0');
 	filename = join_strings((char *[]){"/tmp/", del, index_as_str,
 		ft_strrchr(ttyname(0), '/') + 1}, 4, "");
-	ft_free(index_as_str);
+	ft_free((void **)&index_as_str);
 	return (filename);
 }
 
@@ -53,14 +53,14 @@ static void	create_heredoc_file(t_file *file, int index)
 			{
 				tmp = line;
 				line = expander(line, true);
-				ft_free(tmp);
+				ft_free((void **)&tmp);
 			}
 			ft_putendl_fd(line, fd);
 		}
-		ft_free(line);
+		ft_free((void **)&line);
 	}
 	close(fd);
-	ft_free(file->name);
+	ft_free((void **)&file->name);
 	file->name = file_name;
 }
 

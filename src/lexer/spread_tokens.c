@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:08:52 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/03 04:42:27 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*spread_tokens(char *str)
 		{
 			tmp = result;
 			ft_norm(&result, &s);
-			ft_free(tmp);
+			ft_free((void **)&tmp);
 		}
 		else
 			push_char_to_str(&result, *s);

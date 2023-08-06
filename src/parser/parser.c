@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:25:59 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 00:41:34 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	expand_tokens(t_command *cmd)
 		token = (t_token *)lst_token->content;
 		tmp = token->value;
 		token->value = expander(token->value, token->type != TK_HEREDOC_DEL);
-		ft_free(tmp);
+		ft_free((void **)&tmp);
 		lst_token = lst_token->next;
 	}
 }

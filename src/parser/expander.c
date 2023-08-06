@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 16:47:47 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ char	*get_var_value(char *var, int *ptr_i)
 	if (*var_name == 0)
 	{
 		*ptr_i += 1;
-		ft_free(var_name);
+		ft_free((void **)&var_name);
 		if (var[i] == '?')
 			return (ft_itoa(g_vars.exit_status));
 		var_as_str = char_to_str(var[i]);
 		s = ft_strjoin("$", var_as_str);
-		ft_free(var_as_str);
+		ft_free((void **)&var_as_str);
 		return (s);
 	}
 	env_node = get_env_by_name(var_name);
-	ft_free(var_name);
+	ft_free((void **)&var_name);
 	if (env_node)
 		return (ft_strdup(env_node->value));
 	return (ft_strdup(""));
@@ -87,8 +87,8 @@ void	freeable_join(char **s1, char *s2)
 
 	tmp = *s1;
 	*s1 = ft_strjoin(tmp, s2);
-	ft_free(tmp);
-	ft_free(s2);
+	ft_free((void **)&tmp);
+	ft_free((void **)&s2);
 }
 
 char	*expander(char *word, bool expand)

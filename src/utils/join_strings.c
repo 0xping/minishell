@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 16:57:45 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/03 19:50:17 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ char	*join_strings(char **arr, int size, char *sep)
 		{
 			tmp = result;
 			result = ft_strjoin(result, sep);
-			ft_free(tmp);
+			ft_free((void **)&tmp);
 		}
 		tmp = result;
 		result = ft_strjoin(result, arr[i]);
-		ft_free(tmp);
+		ft_free((void **)&tmp);
 		i++;
 	}
 	return (result);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/07/30 02:45:53 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ void	upsert_env_node(char *name, char *value, bool concat_value)
 		{
 			tmp = env->value;
 			env->value = ft_strjoin(env->value, value);
-			ft_free(env);
+			ft_free((void **)&env);
 		}
 		else
 		{
-			ft_free(env->value);
+			ft_free((void **)&env->value);
 			env->value = ft_strdup(value);
 		}
 	}

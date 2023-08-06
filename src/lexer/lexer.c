@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 17:13:48 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/27 19:32:11 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ t_command	*create_command_node(char *cmd)
 	while (tokens[i])
 	{
 		add_new_token(&command->lst_tokens, tokens[i]);
-		ft_free(tokens[i++]);
+		ft_free((void **)&tokens[i++]);
 	}
-	ft_free(tokens);
+	ft_free((void **)&tokens);
 	return (command);
 }
 
@@ -77,8 +77,8 @@ t_list	*lexer(char *input)
 	while (pipes[i])
 	{
 		ft_lstadd_back(&commands, ft_lstnew(create_command_node(pipes[i])));
-		ft_free(pipes[i++]);
+		ft_free((void **)&pipes[i++]);
 	}
-	ft_free(pipes);
+	ft_free((void **)&pipes);
 	return (commands);
 }

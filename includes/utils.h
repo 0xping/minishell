@@ -6,14 +6,14 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:47:10 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/03 04:41:35 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:47 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-void	ft_free(void *ptr);
+void	ft_free(void **ptr);
 int		is_char_quoted(char *str, char *pos);
 char	*get_prompt(void);
 int		is_blank(char *str);

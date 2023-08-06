@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/04 04:08:40 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:04:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ int	main(int ac, char const *av[], char const *envp[])
 			add_history(input);
 		}
 		tmp = ft_strtrim(input, " \n\v\f\r\t");
-		ft_free(input);
+		ft_free((void **)&input);
 		input = tmp;
 		tmp = spread_tokens(input);
-		ft_free(input);
+		ft_free((void **)&input);
 		input = tmp;
 		if (!input[0])
 		{
-			ft_free(input);
+			ft_free((void **)&input);
 			continue ;
 		}
 		commands = lexer(input);
@@ -91,7 +91,7 @@ int	main(int ac, char const *av[], char const *envp[])
 		}
 		// print(commands);
 		ft_lstclear(&commands, del_command);
-		ft_free(input);
+		ft_free((void **)&input);
 		// system("leaks minishell");
 		// system("lsof minishell");
 	}
