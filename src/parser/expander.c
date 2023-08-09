@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/09 01:53:04 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	is_char_special(char c)
 {
 	char	*special_characters;
 
-	special_characters = "$!#%*(){}[]\"'|\\;:,<>?&=+- \t\n";
+	special_characters = "$!#%*(){}[]/\"'|\\;:,<>?&=+- \t\n";
 	return (ft_strchr(special_characters, c));
 }
 
