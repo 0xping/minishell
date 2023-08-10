@@ -24,12 +24,13 @@ OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 $(LIBFT) : $(wildcard ./lib/libft/*.c)
+	@echo "$(GREEN)\n⌛ Compiling libft ...$(END)"
 	@make -C ./lib/libft
 	@make -C ./lib/libft bonus
 	@make -C ./lib/libft clean
 
 $(NAME): $(SRC) $(LIB)
-	@echo "$(GREEN)\n⌛ Compiling $(NAME) ...$(END)"
+	@echo "$(GREEN)⌛ Compiling $(NAME) ...$(END)"
 	@$(CC) $(CFLAGS) $(SRC) $(LIB) -o $(NAME)
 	@echo "$(GREEN)✅ $(NAME) compiled successfully\n$(END)"
 	@echo "To start your shell, use: $(YELLOW)$(BOLD)make start$(END)"
