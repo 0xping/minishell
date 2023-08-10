@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/08 04:53:15 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/10 02:45:12 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,23 @@ void	set_heredocs(t_list *cmd_list)
 	}
 	dup2(new_stdin, 0);
 	signal(SIGINT, sigint_handler);
+}
+
+void	check_16_heredocs(t_list *cmd_list)
+{
+	t_list	*cmd_i;
+	int		counter;
+
+	cmd_i = cmd_list;
+	counter = 0;
+	while (cmd_i)
+	{
+		counter += ((t_command *)cmd_i->content)->tk_count.heredoc_del;
+		cmd_i = cmd_i->next;
+	}
+	if (counter > 16)
+	{
+		throw_error("maximum here-document count exceeded", 1);
+		exit(2);
+	}
 }
