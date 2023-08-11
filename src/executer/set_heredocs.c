@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/10 02:45:12 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/11 17:18:53 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	set_heredocs(t_list *cmd_list)
 		i_list = i_list->next;
 	}
 	dup2(new_stdin, 0);
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, sig_handler);
 }
 
 void	check_16_heredocs(t_list *cmd_list)
