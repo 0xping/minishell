@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/11 05:06:42 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	upsert_env_node(char *name, char *value, bool concat_value)
 		ft_lstadd_back(&g_vars.env, ft_lstnew(new_env_node(name, value)));
 }
 
-void	ft_env(int fd)
+void	ft_env(void)
 {
 	t_list	*i;
 	t_env	*content;
@@ -95,11 +95,11 @@ void	ft_env(int fd)
 		content = (t_env *)i->content;
 		if (content->value && content->is_set)
 		{
-			ft_putstr_fd(content->name, fd);
-			ft_putchar_fd('=', fd);
-			ft_putstr_fd(content->value, fd);
+			ft_putstr_fd(content->name, 1);
+			ft_putchar_fd('=', 1);
+			ft_putstr_fd(content->value, 1);
 		}
-		ft_putchar_fd('\n', fd);
+		ft_putchar_fd('\n', 1);
 		i = i->next;
 	}
 }
