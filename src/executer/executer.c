@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/11 05:38:00 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:49:06 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,15 @@ void	executer(t_list *cmd_list)
 		cmd = (t_command *)cmd_i->content;
 		dup2(cmd->fd[0], 0);
 		dup2(cmd->fd[1], 1);
-		// fork for a child
-		if (exec_builtins(cmd->command))
+		if (!cmd->file_error)
 		{
-			// exec none builtins
+			// fork for a child
+			if (exec_builtins(cmd->command))
+			{
+				// exec none builtins
+			}
+			// child ends here
 		}
-		// child ends here
 		(cmd->fd[0]) && close(cmd->fd[0]);
 		(cmd->fd[1] != 1) && close(cmd->fd[1]);
 		cmd_i = cmd_i->next;

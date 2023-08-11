@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 21:33:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 21:33:41 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:43:42 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_command
 	} tk_count;
 	char		**command;
 	t_list		*files;
+	bool		file_error;
 	int			*fd;
 }				t_command;
 

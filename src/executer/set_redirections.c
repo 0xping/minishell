@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/11 16:54:41 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_oflag(red_type type)
 	return (oflag);
 }
 
-static void	open_file(t_file *file, int **fd)
+static int	open_file(t_file *file, int **fd)
 {
 	int		file_fd;
 	char	*err_prompt;
@@ -42,6 +42,7 @@ static void	open_file(t_file *file, int **fd)
 		perror(err_prompt);
 		ft_free((void **)&err_prompt);
 		g_vars.exit_status = 1;
+		return (1);
 	}
 	if (file->type == RED_IN || file->type == RED_HEREDOC)
 	{
@@ -53,6 +54,7 @@ static void	open_file(t_file *file, int **fd)
 		((*fd)[1] != 0 && (*fd)[1] != 1 && (*fd)[1] != 2) && (close((*fd)[1]));
 		(*fd)[1] = file_fd;
 	}
+	return (0);
 }
 
 void	set_redirections(t_list *cmd_list)
@@ -72,7 +74,9 @@ void	set_redirections(t_list *cmd_list)
 		while (j_list)
 		{
 			file = (t_file *)j_list->content;
-			open_file(file, &cmd->fd);
+			cmd->file_error = open_file(file, &cmd->fd);
+			if (cmd->file_error)
+				break ;
 			j_list = j_list->next;
 		}
 		i_list = i_list->next;
