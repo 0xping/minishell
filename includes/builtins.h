@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 17:50:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/07/30 02:37:51 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/11 03:25:19 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ typedef struct s_env
 	bool	is_set;
 }			t_env;
 
-void		ft_pwd(int fd);
-void		ft_echo(char **args, int fd);
+void		ft_pwd(void);
+void		ft_echo(char **args);
 
 /*------------------------------------- ENV -------------------------------------*/
 t_env		*new_env_node(char *name, char *value);

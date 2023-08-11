@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:16:59 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/11 03:24:58 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_n_option(char *str)
 	return (str[i] == 0);
 }
 
-void	ft_echo(char **args, int fd)
+void	ft_echo(char **args)
 {
 	int		i;
 	bool	n_flag;
@@ -40,11 +40,11 @@ void	ft_echo(char **args, int fd)
 	}
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], fd);
+		ft_putstr_fd(args[i], 1);
 		if (args[i + 1])
-			ft_putchar_fd(' ', fd);
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (!n_flag)
-		ft_putchar_fd('\n', fd);
+		ft_putchar_fd('\n', 1);
 }
