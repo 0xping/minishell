@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 21:32:58 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/10 23:45:42 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:55:38 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define RESET_ALL "\x1b[0m"
 
 # include <fcntl.h>
+# include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>

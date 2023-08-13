@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 14:04:16 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/07/03 13:29:15 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/13 14:30:51 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <limits.h>
 # include <stddef.h>
+#include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
