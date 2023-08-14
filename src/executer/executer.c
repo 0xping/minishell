@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/11 16:49:06 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:07:18 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ int	exec_builtins(char **cmd)
 		return (0);
 	g_vars.exit_status = 0;
 	if (!ft_strcmp(*cmd, "cd"))
-		;
+	{}
 	if (!ft_strcmp(*cmd, "echo"))
 		ft_echo(cmd + 1);
 	else if (!ft_strcmp(*cmd, "env"))
 		ft_env();
 	else if (!ft_strcmp(*cmd, "exit"))
-		;
+	{}
 	else if (!ft_strcmp(*cmd, "export"))
-		;
+	{}
 	else if (!ft_strcmp(*cmd, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(*cmd, "unset"))
-		;
+	{}
 	else
 		return (0);
 	return (1);
@@ -84,8 +84,8 @@ void	executer(t_list *cmd_list)
 			}
 			// child ends here
 		}
-		(cmd->fd[0]) && close(cmd->fd[0]);
-		(cmd->fd[1] != 1) && close(cmd->fd[1]);
+		if (cmd->fd[0]) close(cmd->fd[0]);
+		(cmd->fd[1] != 1) && (close(cmd->fd[1]), 0);
 		cmd_i = cmd_i->next;
 	}
 	dup2(new_fds[0], 0);

@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:08:52 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:04:21 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,15 @@ char	*spread_tokens(char *str) {
 static void	ft_norm(char **p_result, char **p_str) {
   char *result;
   char *str;
-
   result = *p_result;
   str = *p_str;
   if (*str == *(str + 1)) {
-    (*str == '<') && (result = ft_strjoin(result, " << "));
-    (*str == '>') && (result = ft_strjoin(result, " >> "));
+    (*str == '<') && ((result = ft_strjoin(result, " << ")), 0);
+    (*str == '>') && ((result = ft_strjoin(result, " >> ")), 0);
     str++;
   } else {
-    (*str == '<') && (result = ft_strjoin(result, " < "));
-    (*str == '>') && (result = ft_strjoin(result, " > "));
+    (*str == '<') && ((result = ft_strjoin(result, " < ")), 0);
+    (*str == '>') && ((result = ft_strjoin(result, " > ")), 0);
   }
   *p_result = result;
   *p_str = str;

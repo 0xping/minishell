@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/11 05:06:42 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/14 10:45:15 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	upsert_env_node(char *name, char *value, bool concat_value)
 		{
 			tmp = env->value;
 			env->value = ft_strjoin(env->value, value);
-			ft_free((void **)&env);
+			ft_free((void **)&tmp);
 		}
 		else
 		{

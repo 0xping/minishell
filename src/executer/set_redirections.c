@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/11 16:54:41 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/14 11:06:19 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ static int	get_oflag(red_type type)
 	int	oflag;
 
 	oflag = O_WRONLY | O_CREAT;
-	(type == RED_OUT) && (oflag |= O_TRUNC);
-	(type == RED_APPEND) && (oflag |= O_APPEND);
-	(type == RED_IN || type == RED_HEREDOC) && (oflag = O_RDONLY);
+	if (type == RED_OUT)
+		oflag |= O_TRUNC;
+	if(type == RED_APPEND)
+		oflag |= O_APPEND;
+	if (type == RED_IN || type == RED_HEREDOC)
+		oflag = O_RDONLY;
 	return (oflag);
 }
 
@@ -46,12 +49,12 @@ static int	open_file(t_file *file, int **fd)
 	}
 	if (file->type == RED_IN || file->type == RED_HEREDOC)
 	{
-		((*fd)[0] != 0 && (*fd)[0] != 1 && (*fd)[0] != 2) && (close((*fd)[0]));
+		((*fd)[0] != 0 && (*fd)[0] != 1 && (*fd)[0] != 2) && (close((*fd)[0]),0);
 		(*fd)[0] = file_fd;
 	}
 	else if (file->type == RED_OUT || file->type == RED_APPEND)
 	{
-		((*fd)[1] != 0 && (*fd)[1] != 1 && (*fd)[1] != 2) && (close((*fd)[1]));
+		((*fd)[1] != 0 && (*fd)[1] != 1 && (*fd)[1] != 2) && (close((*fd)[1]),0);
 		(*fd)[1] = file_fd;
 	}
 	return (0);
