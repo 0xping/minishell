@@ -9,7 +9,8 @@ BOLD = \033[1m
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -lreadline -L$(shell  brew --prefix readline)/lib # /goinfre/aait-lfd/homebrew/opt/readline/lib
+CFLAGS = -Wall -Wextra -Werror
+LDFLAGS = -lreadline -L$(shell brew --prefix readline)/lib
 
 # Target name
 NAME = minishell
@@ -31,9 +32,10 @@ $(LIBFT) : $(wildcard ./lib/libft/*.c)
 
 $(NAME): $(SRC) $(LIB)
 	@echo "$(GREEN)⌛ Compiling $(NAME) ...$(END)"
-	@$(CC) $(CFLAGS) $(SRC) $(LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(SRC) $(LIB) $(LDFLAGS) -o $(NAME)
 	@echo "$(GREEN)✅ $(NAME) compiled successfully\n$(END)"
 	@echo "To start your shell, use: $(YELLOW)$(BOLD)make start$(END)"
+
 
 start :
 	clear
