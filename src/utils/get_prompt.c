@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:00:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/11 01:10:54 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:34:36 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*get_cwd(void)
 {
 	char	*path;
 	char	*result;
-	char	*home_path;
+	t_env * home_env = get_env_by_name("HOME");
 
 	path = getcwd(0, 0);
 	result = 0;
@@ -24,11 +24,9 @@ char	*get_cwd(void)
 		return (path);
 	else
 	{
-		home_path = ft_strjoin("/Users/", get_env_by_name("USER")->value);
-		if (!ft_strcmp(home_path, path))
+		if (home_env && !ft_strcmp(home_env->value, path))
 		{
 			free(path);
-			free(home_path);
 			return (ft_strdup("~"));
 		}
 	}
