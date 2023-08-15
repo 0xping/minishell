@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/09 01:53:04 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:10:56 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,12 @@ char	*get_var_value(char *var, int *ptr_i)
 	{
 		var_name = ft_substr(var, 1, ft_strchr(var + 1, var[i]) - var - 1);
 		*ptr_i += ft_strlen(var_name) + 1;
-		return (var_name);
+		if(var[i] == '\'')
+			return (var_name);
+		s = var_name;
+		var_name = expander(var_name,1);
+		free(s);
+		return(var_name);
 	}
 	while (var[i] && !is_char_special(var[i]))
 		i++;
