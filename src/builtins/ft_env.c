@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/14 10:45:15 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:04:52 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ void	upsert_env_node(char *name, char *value, bool concat_value)
 		}
 		else
 		{
-			ft_free((void **)&env->value);
-			env->value = ft_strdup(value);
+			if (value)
+			{
+				ft_free((void **)&env->value);
+				env->value = ft_strdup(value);
+			}
 		}
 	}
 	else
