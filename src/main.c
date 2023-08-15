@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/14 10:38:32 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:27:29 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char const *av[], char const *envp[])
 	init_global_vars(envp);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	// set_signal_printing();
+	set_signal_printing();
 	while (1)
 	{
 		input = readline(get_prompt());

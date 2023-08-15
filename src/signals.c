@@ -6,7 +6,19 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:04:37 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/11 17:26:56 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:27:00 by aait-lfd         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/09 17:04:37 by aait-lfd          #+#    #+#             */
+/*   Updated: 2023/08/15 17:25:52 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +42,9 @@ void	sig_handler(int sig)
 
 void	set_signal_printing(void)
 {
-	struct termios	new_term;
+	struct termios	new;
 
-	tcgetattr(0, &new_term);
-	new_term.c_lflag &= ~(ISIG | ECHO);
-	tcsetattr(STDIN_FILENO, TCSANOW, &new_term);
+	tcgetattr(0, &new);
+	new.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &new);
 }
