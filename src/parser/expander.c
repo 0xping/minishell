@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/15 20:10:56 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:02:16 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,12 @@ char	*get_var_value(char *var, int *ptr_i)
 	char	*s;
 
 	i = 0;
-	if (var[i] == '"' || var[i] == '\'')
+	if (*var == '"' || *var == '\'')
 	{
-		var_name = ft_substr(var, 1, ft_strchr(var + 1, var[i]) - var - 1);
-		*ptr_i += ft_strlen(var_name) + 1;
-		if(var[i] == '\'')
-			return (var_name);
-		s = var_name;
-		var_name = expander(var_name,1);
-		free(s);
-		return(var_name);
+		var_name = get_quote_content(var);
+		*ptr_i += ft_strlen(var_name) + 2;
+		s = expander(var_name, *var == '"' );
+		return (ft_free((void **)&var_name), s);
 	}
 	while (var[i] && !is_char_special(var[i]))
 		i++;
@@ -52,8 +48,7 @@ char	*get_var_value(char *var, int *ptr_i)
 			return (ft_itoa(g_vars.exit_status));
 		var_as_str = char_to_str(var[i]);
 		s = ft_strjoin("$", var_as_str);
-		ft_free((void **)&var_as_str);
-		return (s);
+		return (ft_free((void **)&var_as_str), s);
 	}
 	env_node = get_env_by_name(var_name);
 	ft_free((void **)&var_name);
@@ -96,7 +91,7 @@ void	freeable_join(char **s1, char *s2)
 	ft_free((void **)&s2);
 }
 
-char	*expander(char *word, bool expand)
+char *expander(char *word, bool is_heredoc)
 {
 	int		i;
 	char	*result;
@@ -105,22 +100,39 @@ char	*expander(char *word, bool expand)
 	result = ft_strdup("");
 	while (word[i])
 	{
-		if (word[i] == '"' || word[i] == '\'')
+		if(word[i] == '$' && word[i + 1] && (is_heredoc || should_expand(word, word + i)))
 		{
-			if (is_char_quoted(word, word + i))
-			{
-				push_char_to_str(&result, word[i]);
-				word[i] *= -1;
-			}
-		}
-		else if (word[i] == '$' && word[i + 1] && expand && should_expand(word,
-				word + i))
-		{
-			freeable_join(&result, get_var_value(word + i + 1, &i));
+			if((word[i + 1] == '\"' || word[i + 1] == '"') && is_heredoc)
+				push_char_to_str(&result, '$');
+			else
+				freeable_join(&result, get_var_value(word + i + 1, &i));
 		}
 		else
 			push_char_to_str(&result, word[i]);
 		i++;
 	}
-	return (result);
+	return result;
+
 }
+
+
+
+
+// char	*expander(char *word, bool expand)
+// {
+// 	int		i;
+// 	char	*result;
+
+// 	i = 0;
+// 	result = ft_strdup("");
+// 	while (word[i])
+// 	{
+// 		if (word[i] == '$' && word[i + 1] && expand && should_expand(word,
+// 				word + i))
+// 			freeable_join(&result, get_var_value(word + i + 1, &i));
+// 		else
+// 			push_char_to_str(&result, word[i]);
+// 		i++;
+// 	}
+// 	return (result);
+// }

@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/14 11:06:19 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:53:13 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	set_redirections(t_list *cmd_list)
 		while (j_list)
 		{
 			file = (t_file *)j_list->content;
-			cmd->file_error = open_file(file, &cmd->fd);
+			if(!cmd->file_error)
+				cmd->file_error = open_file(file, &cmd->fd);
 			if (cmd->file_error)
 				break ;
 			j_list = j_list->next;
