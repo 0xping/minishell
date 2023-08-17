@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:25:59 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/16 17:16:21 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:41:52 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static int is_ambiguous(char *s)
 	free(sp);
 	return (i > 1 || !ft_strlen(s));
 }
-
-
 
 static void	expand_tokens(t_command *cmd)
 {
@@ -51,11 +49,6 @@ static void	expand_tokens(t_command *cmd)
 		lst_token = lst_token->next;
 	}
 }
-
-
-
-
-
 
 static void remove_quotes_from_tk(t_command * cmd)
 {

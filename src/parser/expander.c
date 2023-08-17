@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/17 12:03:49 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:42:21 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,7 @@ char *expander(char *word, bool is_heredoc)
 		i++;
 	}
 	return result;
-
 }
-
-
-
 
 // char	*expander(char *word, bool expand)
 // {
