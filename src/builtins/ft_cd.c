@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/17 14:22:14 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:13:23 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,10 @@
 
 void	add_pwd(char *s, int n)
 {
-	t_list	*i;
-	t_env	*content;
-
-	i = g_vars.env;
 	if (n == 0)
-	{
-		content = get_env_by_name("OLDPWD");
-		if (content)
-			content->value = s;
-		else
-			ft_lstadd_back(&g_vars.env, ft_lstnew(new_env_node("OLDPWD", s)));
-	}
+		upsert_env_node("OLDPWD", s, 0);
 	else if (n == 1)
-	{
-		content = get_env_by_name("PWD");
-		if (content)
-			content->value = s;
-		else
-			ft_lstadd_back(&g_vars.env, ft_lstnew(new_env_node("PWD", s)));
-	}
+		upsert_env_node("PWD", s, 0);
 }
 
 void	ft_cd(char **s)
@@ -67,8 +51,7 @@ void	ft_cd(char **s)
 			g_vars.exit_status = 1;
 			perror("minishell: cd:");
 		}
-	}
-	else
+	} else
 	{
 		g_vars.exit_status = 1;
 		perror("minishell: cd");

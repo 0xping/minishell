@@ -6,11 +6,21 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 19:32:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 16:58:48 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/inc.h"
+
+//free t_env content
+void del_env(void *content)
+{
+	t_env *env;
+
+	env = (t_env *)content;;
+	ft_free((void **)&env);
+}
+
 
 // free t_token content
 void	del_tokens(void *content)

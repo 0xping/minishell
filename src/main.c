@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/15 17:27:29 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:13:00 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	main(int ac, char const *av[], char const *envp[])
 	char	*input;
 	t_list	*commands;
 	char	*tmp;
+	char	*prompt;
 
 	ac += 0;
 	av += 0;
@@ -62,7 +63,9 @@ int	main(int ac, char const *av[], char const *envp[])
 	set_signal_printing();
 	while (1)
 	{
-		input = readline(get_prompt());
+		prompt = get_prompt();
+		input = readline(prompt);
+		ft_free((void **)&prompt);
 		if (!input || *input)
 		{
 			if (!input)

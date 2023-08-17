@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 21:33:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/11 16:43:42 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 16:37:37 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 void			del_command(void *content);
+void			del_env(void *content);
 void			rl_replace_line(const char *text, int clear_undo);
 
 typedef struct s_global

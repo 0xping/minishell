@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/15 17:06:13 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 16:24:36 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	executer(t_list *cmd_list)
 	}
 	dup2(new_fds[0], 0);
 	dup2(new_fds[1], 1);
+	ft_free((void**)&new_fds);
 }

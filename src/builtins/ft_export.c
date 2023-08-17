@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:14:22 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/15 17:09:50 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:00:15 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ t_list	*dup_env(t_list *_env)
 
 	if (!_env)
 		return (NULL);
-	i = malloc(sizeof(t_list));
-	i->content = _env->content;
+	i = ft_lstnew(new_env_node(((t_env *)_env->content)->name, ((t_env *)_env->content)->value));
 	i->next = dup_env(_env->next);
 	return (i);
 }
@@ -32,7 +31,8 @@ t_list	*sort_export(void)
 	t_list	*second;
 	void	*exp;
 
-	new = first = dup_env(g_vars.env);
+	new  = dup_env(g_vars.env);
+	first = new;
 	while (first)
 	{
 		save = first;
@@ -58,10 +58,12 @@ t_list	*sort_export(void)
 
 void	print_export(void)
 {
+	t_list	*export_list;
 	t_list	*i;
 	t_env	*exp;
 
-	i = sort_export();
+	export_list = sort_export();
+	i = export_list;
 	while (i)
 	{
 		exp = (t_env *)i->content;
@@ -76,7 +78,7 @@ void	print_export(void)
 		write(1, "\n", 1);
 		i = i->next;
 	}
-	// free i
+	ft_lstclear(&export_list, del_env);
 }
 
 void	ft_export(char **cmd)
