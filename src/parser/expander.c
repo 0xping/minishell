@@ -25,7 +25,7 @@ char	*get_var_value(char *var, int *ptr_i)
 	{
 		var_name = get_quote_content(var);
 		*ptr_i += ft_strlen(var_name) + 2;
-		s = expander(var_name, *var == '"' );
+		s = expander(var_name, *var == '"');
 		return (ft_free((void **)&var_name), s);
 	}
 	while (var[i] && !is_char_special(var[i]))
@@ -83,7 +83,7 @@ void	freeable_join(char **s1, char *s2)
 	ft_free((void **)&s2);
 }
 
-char *expander(char *word, bool is_heredoc)
+char	*expander(char *word, bool is_heredoc)
 {
 	int		i;
 	char	*result;
@@ -92,9 +92,10 @@ char *expander(char *word, bool is_heredoc)
 	result = ft_strdup("");
 	while (word[i])
 	{
-		if(word[i] == '$' && word[i + 1] && (is_heredoc || should_expand(word, word + i)))
+		if (word[i] == '$' && word[i + 1] && (is_heredoc || should_expand(word,
+					word + i)))
 		{
-			if((word[i + 1] == '\"' || word[i + 1] == '"') && is_heredoc)
+			if ((word[i + 1] == '\"' || word[i + 1] == '"') && is_heredoc)
 				push_char_to_str(&result, '$');
 			else
 				freeable_join(&result, get_var_value(word + i + 1, &i));
@@ -103,7 +104,7 @@ char *expander(char *word, bool is_heredoc)
 			push_char_to_str(&result, word[i]);
 		i++;
 	}
-	return result;
+	return (result);
 }
 
 // char	*expander(char *word, bool expand)

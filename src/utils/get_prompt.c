@@ -16,8 +16,9 @@ char	*get_cwd(void)
 {
 	char	*path;
 	char	*result;
-	t_env * home_env = get_env_by_name("HOME");
+	t_env	*home_env;
 
+	home_env = get_env_by_name("HOME");
 	path = getcwd(0, 0);
 	result = 0;
 	if (char_count(path, '/') == 1)

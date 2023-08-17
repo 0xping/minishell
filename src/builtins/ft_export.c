@@ -18,7 +18,8 @@ t_list	*dup_env(t_list *_env)
 
 	if (!_env)
 		return (NULL);
-	i = ft_lstnew(new_env_node(((t_env *)_env->content)->name, ((t_env *)_env->content)->value));
+	i = ft_lstnew(new_env_node(((t_env *)_env->content)->name,
+			((t_env *)_env->content)->value));
 	i->next = dup_env(_env->next);
 	return (i);
 }
@@ -31,7 +32,7 @@ t_list	*sort_export(void)
 	t_list	*second;
 	void	*exp;
 
-	new  = dup_env(g_vars.env);
+	new = dup_env(g_vars.env);
 	first = new;
 	while (first)
 	{

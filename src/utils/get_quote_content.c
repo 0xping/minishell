@@ -12,9 +12,10 @@
 
 #include "../../includes/inc.h"
 
-char *get_quote_content(char *s)
+char	*get_quote_content(char *s)
 {
-	char quote = *s;
+	char	quote;
 
+	quote = *s;
 	return (ft_substr(s + 1, 0, ft_strchr(s + 1, quote) - s - 1));
 }

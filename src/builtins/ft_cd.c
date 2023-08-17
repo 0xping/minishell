@@ -51,7 +51,8 @@ void	ft_cd(char **s)
 			g_vars.exit_status = 1;
 			perror("minishell: cd:");
 		}
-	} else
+	}
+	else
 	{
 		g_vars.exit_status = 1;
 		perror("minishell: cd");

@@ -82,11 +82,12 @@ void	executer(t_list *cmd_list)
 			}
 			// child ends here
 		}
-		if (cmd->fd[0]) close(cmd->fd[0]);
+		if (cmd->fd[0])
+			close(cmd->fd[0]);
 		(cmd->fd[1] != 1) && (close(cmd->fd[1]), 0);
 		cmd_i = cmd_i->next;
 	}
 	dup2(new_fds[0], 0);
 	dup2(new_fds[1], 1);
-	ft_free((void**)&new_fds);
+	ft_free((void **)&new_fds);
 }

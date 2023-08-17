@@ -12,15 +12,15 @@
 
 #include "../includes/inc.h"
 
-//free t_env content
-void del_env(void *content)
+// free t_env content
+void	del_env(void *content)
 {
-	t_env *env;
+	t_env	*env;
 
-	env = (t_env *)content;;
+	env = (t_env *)content;
+	;
 	ft_free((void **)&env);
 }
-
 
 // free t_token content
 void	del_tokens(void *content)

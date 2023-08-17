@@ -12,10 +12,13 @@
 
 #include "../../includes/inc.h"
 
-char *remove_quotes(char *s)
+char	*remove_quotes(char *s)
 {
-	int i = 0;
-	char *result = ft_strdup("");
+	int		i;
+	char	*result;
+
+	i = 0;
+	result = ft_strdup("");
 	while (s[i])
 	{
 		if (s[i] == '"' || s[i] == '\'')
@@ -27,7 +30,7 @@ char *remove_quotes(char *s)
 			}
 		}
 		else
-			push_char_to_str(&result,s[i]);
+			push_char_to_str(&result, s[i]);
 		i++;
 	}
 	return (result);

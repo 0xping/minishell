@@ -19,7 +19,7 @@ static int	get_oflag(red_type type)
 	oflag = O_WRONLY | O_CREAT;
 	if (type == RED_OUT)
 		oflag |= O_TRUNC;
-	if(type == RED_APPEND)
+	if (type == RED_APPEND)
 		oflag |= O_APPEND;
 	if (type == RED_IN || type == RED_HEREDOC)
 		oflag = O_RDONLY;
@@ -49,12 +49,14 @@ static int	open_file(t_file *file, int **fd)
 	}
 	if (file->type == RED_IN || file->type == RED_HEREDOC)
 	{
-		((*fd)[0] != 0 && (*fd)[0] != 1 && (*fd)[0] != 2) && (close((*fd)[0]),0);
+		((*fd)[0] != 0 && (*fd)[0] != 1 && (*fd)[0] != 2) && (close((*fd)[0]),
+			0);
 		(*fd)[0] = file_fd;
 	}
 	else if (file->type == RED_OUT || file->type == RED_APPEND)
 	{
-		((*fd)[1] != 0 && (*fd)[1] != 1 && (*fd)[1] != 2) && (close((*fd)[1]),0);
+		((*fd)[1] != 0 && (*fd)[1] != 1 && (*fd)[1] != 2) && (close((*fd)[1]),
+			0);
 		(*fd)[1] = file_fd;
 	}
 	return (0);
@@ -77,7 +79,7 @@ void	set_redirections(t_list *cmd_list)
 		while (j_list)
 		{
 			file = (t_file *)j_list->content;
-			if(!cmd->file_error)
+			if (!cmd->file_error)
 				cmd->file_error = open_file(file, &cmd->fd);
 			if (cmd->file_error)
 				break ;

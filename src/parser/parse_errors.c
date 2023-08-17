@@ -47,18 +47,19 @@ void	count_tokens(t_command *cmd)
 	t_token	*content;
 
 	token = cmd->lst_tokens;
-
 	while (token)
 	{
 		content = token->content;
-		(content->type == TK_APPEND_FILE) && ((cmd->tk_count.append_file++),0);
-		(content->type == TK_APPEND_OP) && ((cmd->tk_count.append_op++),0);
-		(content->type == TK_REDIRECT_IN_FILE) && ((cmd->tk_count.in_file++),0);
-		(content->type == TK_REDIRECT_IN_OP) && ((cmd->tk_count.in_op++),0);
-		(content->type == TK_REDIRECT_OUT_FILE) && ((cmd->tk_count.out_file++),0);
-		(content->type == TK_REDIRECT_OUT_OP) && ((cmd->tk_count.out_op++),0);
-		(content->type == TK_HEREDOC_DEL) && ((cmd->tk_count.heredoc_del++),0);
-		(content->type == TK_HEREDOC_OP) && ((cmd->tk_count.heredoc_op++),0);
+		(content->type == TK_APPEND_FILE) && ((cmd->tk_count.append_file++), 0);
+		(content->type == TK_APPEND_OP) && ((cmd->tk_count.append_op++), 0);
+		(content->type == TK_REDIRECT_IN_FILE) && ((cmd->tk_count.in_file++),
+			0);
+		(content->type == TK_REDIRECT_IN_OP) && ((cmd->tk_count.in_op++), 0);
+		(content->type == TK_REDIRECT_OUT_FILE) && ((cmd->tk_count.out_file++),
+			0);
+		(content->type == TK_REDIRECT_OUT_OP) && ((cmd->tk_count.out_op++), 0);
+		(content->type == TK_HEREDOC_DEL) && ((cmd->tk_count.heredoc_del++), 0);
+		(content->type == TK_HEREDOC_OP) && ((cmd->tk_count.heredoc_op++), 0);
 		token = token->next;
 	}
 }

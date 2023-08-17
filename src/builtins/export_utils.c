@@ -60,7 +60,7 @@ void	fill_my_export(char **cmd)
 		}
 		if (!check_export_errors(cmd[j], _name))
 			upsert_env_node(_name, _value, _concat);
-		ft_free((void**)&_name);
+		ft_free((void **)&_name);
 	}
 }
 
