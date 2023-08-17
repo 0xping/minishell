@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:47:10 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/16 15:13:36 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:07:02 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int		is_char_double_quoted(char *str, char *pos);
 void	push_char_to_str(char **str, char c);
 char	*get_quote_content(char *s);
 char	*remove_quotes(char *s);
+bool	is_char_special(char c);
 
 #endif

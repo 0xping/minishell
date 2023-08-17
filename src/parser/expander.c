@@ -6,19 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/16 16:02:16 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:03:49 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
-
-bool	is_char_special(char c)
-{
-	char	*special_characters;
-
-	special_characters = "$!#%*(){}[]/\"'|\\;:,<>?&=+- \t\n";
-	return (ft_strchr(special_characters, c));
-}
 
 char	*get_var_value(char *var, int *ptr_i)
 {
