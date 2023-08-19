@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:25:59 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/17 12:41:52 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/18 15:46:57 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ static int	is_ambiguous(char *s)
 	return (i > 1 || !ft_strlen(s));
 }
 
+static int	is_file_expanded(t_token *token, char *prev)
+{
+	return ((token->type == TK_APPEND_FILE || token->type == TK_REDIRECT_IN_FILE
+			|| token->type == TK_REDIRECT_OUT_FILE) && ft_strcmp(prev,
+			token->value));
+}
+
 static void	expand_tokens(t_command *cmd)
 {
 	t_list	*lst_token;
@@ -39,10 +46,7 @@ static void	expand_tokens(t_command *cmd)
 		{
 			tmp = token->value;
 			token->value = expander(token->value, 0);
-			if ((token->type == TK_APPEND_FILE
-					|| token->type == TK_REDIRECT_IN_FILE
-					|| token->type == TK_REDIRECT_OUT_FILE) && ft_strcmp(tmp,
-					token->value))
+			if (is_file_expanded(token, tmp))
 			{
 				if (is_ambiguous(token->value))
 				{
