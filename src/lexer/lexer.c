@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 17:13:48 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/06 21:32:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:42:49 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_command	*create_command_node(char *cmd)
 
 	command = ft_calloc(1, sizeof(t_command));
 	command->value = ft_strdup(cmd);
+	command->command = 0;
 	tokens = split_quote_safe(cmd, "\t\n\v\f\r ", 0);
 	i = 0;
 	while (tokens[i])

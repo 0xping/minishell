@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/19 22:14:15 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:46:09 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,39 +107,42 @@ void	executer(t_list *cmd_list)
 		rd = 0;
 		wr = 1;
 		cmd = (t_command *)current->content;
-		if (is_builtins(cmd->command) && ft_lstsize(cmd_list) == 1)
+		if(cmd->command)
 		{
-			if (cmd->fd[0] != 0 || cmd->fd[1] != 1)
+			if (is_builtins(cmd->command) && ft_lstsize(cmd_list) == 1)
 			{
-				rd = cmd->fd[0];
-				wr = cmd->fd[1];
+				if (cmd->fd[0] != 0 || cmd->fd[1] != 1)
+				{
+					rd = cmd->fd[0];
+					wr = cmd->fd[1];
+				}
+				exec_builtins(cmd->command, wr);
 			}
-			exec_builtins(cmd->command, wr);
+			else
+			{
+				if (i > 0)
+					rd = pipe_fd[i - 1][0];
+				if (current->next)
+				{
+					(pipe(pipe_fd[i]) == -1) && (perror("pipe"), 1);
+					wr = pipe_fd[i][1];
+				}
+				if (cmd->fd[0] != 0)
+				{
+					(rd) && (close(rd), 1);
+					rd = cmd->fd[0];
+				}
+				if (cmd->fd[1] != 1)
+				{
+					(wr != 1) && (close(wr), 1);
+					wr = cmd->fd[1];
+				}
+				child(rd, wr, cmd, i, pipe_fd[i][0], pipe_fd[i][1]);
+				wr != 1 && (close(wr), 1);
+				rd && (close(rd), 1);
+			}
+			i++;
 		}
-		else
-		{
-			if (i > 0)
-				rd = pipe_fd[i - 1][0];
-			if (current->next)
-			{
-				(pipe(pipe_fd[i]) == -1) && (perror("pipe"), 1);
-				wr = pipe_fd[i][1];
-			}
-			if (cmd->fd[0] != 0)
-			{
-				(rd) && (close(rd), 1);
-				rd = cmd->fd[0];
-			}
-			if (cmd->fd[1] != 1)
-			{
-				(wr != 1) && (close(wr), 1);
-				wr = cmd->fd[1];
-			}
-			child(rd, wr, cmd, i, pipe_fd[i][0], pipe_fd[i][1]);
-			wr != 1 && (close(wr), 1);
-			rd && (close(rd), 1);
-		}
-		++i;
 		current = current->next;
 	}
 	i = 0;
