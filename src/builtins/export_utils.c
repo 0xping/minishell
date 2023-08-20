@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:17:47 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/19 15:53:49 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/20 15:05:50 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ void	fill_my_export(char **cmd)
 			ft_free((void **)&_value);
 		ft_free((void **)&_name);
 	}
+	set_global_envp();
 }
+
 
 //"$?$"
 // if (lent > 0)

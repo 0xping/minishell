@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 21:33:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/17 16:37:37 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/20 15:09:47 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 void			del_command(void *content);
 void			del_env(void *content);
 void			rl_replace_line(const char *text, int clear_undo);
+void			set_global_envp();
+void 			free_global_envp();
+
 
 typedef struct s_global
 {
 	int			exit_status;
 	int			heredoc_sig;
-	pid_t		pid;
+	pid_t		*pid;
 	t_list		*env;
+	const char	**envp;
 }				t_global;
 
 typedef enum
