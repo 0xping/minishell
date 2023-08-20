@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/18 11:07:37 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:00:39 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	upsert_env_node(char *name, char *value, bool concat_value)
 			tmp = env->value;
 			env->value = ft_strjoin(env->value, value);
 			ft_free((void **)&tmp);
+			ft_free((void **)&value);
 		}
 		else
 		{
@@ -88,7 +89,7 @@ void	upsert_env_node(char *name, char *value, bool concat_value)
 		ft_lstadd_back(&g_vars.env, ft_lstnew(new_env_node(name, value)));
 }
 
-void	ft_env(void)
+void	ft_env(int wr)
 {
 	t_list	*i;
 	t_env	*content;
@@ -99,11 +100,11 @@ void	ft_env(void)
 		content = (t_env *)i->content;
 		if (content->value && content->is_set)
 		{
-			ft_putstr_fd(content->name, 1);
-			ft_putchar_fd('=', 1);
-			ft_putstr_fd(content->value, 1);
+			ft_putstr_fd(content->name, wr);
+			ft_putchar_fd('=', wr);
+			ft_putstr_fd(content->value, wr);
 		}
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', wr);
 		i = i->next;
 	}
 }

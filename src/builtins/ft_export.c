@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:14:22 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/17 17:00:15 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/19 17:03:24 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_list	*sort_export(void)
 	return (new);
 }
 
-void	print_export(void)
+void	print_export(int wr)
 {
 	t_list	*export_list;
 	t_list	*i;
@@ -68,24 +68,24 @@ void	print_export(void)
 	while (i)
 	{
 		exp = (t_env *)i->content;
-		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd("declare -x ", wr);
 		write(1, exp->name, ft_strlen(exp->name));
 		if (exp->value)
 		{
-			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(exp->value, 1);
-			ft_putchar_fd('"', 1);
+			ft_putstr_fd("=\"", wr);
+			ft_putstr_fd(exp->value, wr);
+			ft_putchar_fd('"', wr);
 		}
-		write(1, "\n", 1);
+		write(1, "\n", wr);
 		i = i->next;
 	}
 	ft_lstclear(&export_list, del_env);
 }
 
-void	ft_export(char **cmd)
+void	ft_export(char **cmd, int wr)
 {
 	if (cmd[1] == NULL)
-		print_export();
+		print_export(wr);
 	else
 		fill_my_export(cmd);
 }

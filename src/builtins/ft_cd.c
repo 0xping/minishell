@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/17 17:13:23 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/18 19:18:06 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	add_pwd(char *s, int n)
 {
+	if (s == 0)
+		s = "";
 	if (n == 0)
-		upsert_env_node("OLDPWD", s, 0);
+		upsert_env_node(ft_strdup("OLDPWD"), ft_strdup(s), 0);
 	else if (n == 1)
-		upsert_env_node("PWD", s, 0);
+		upsert_env_node(ft_strdup("PWD"), ft_strdup(s), 0);
 }
 
 void	ft_cd(char **s)

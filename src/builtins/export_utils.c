@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:17:47 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/18 11:13:00 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/19 15:53:49 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int	check_export_errors(char *ind, char *name)
 	int	i;
 
 	i = 0;
-	while (name[i])
+
+	while (name[i] || !*name)
 	{
-		if (is_char_special(name[i]) || ft_isdigit(name[0]))
+		if (!*name || is_char_special(name[i]) || ft_isdigit(name[0]))
 		{
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(ind, 2);
@@ -60,6 +61,8 @@ void	fill_my_export(char **cmd)
 		}
 		if (!check_export_errors(cmd[j], _name))
 			upsert_env_node(ft_strdup(_name), _value, _concat);
+		else
+			ft_free((void **)&_value);
 		ft_free((void **)&_name);
 	}
 }
