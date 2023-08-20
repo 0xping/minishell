@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:17:47 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/20 15:05:50 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/20 17:00:42 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_export_errors(char *ind, char *name)
 
 void	fill_my_export(char **cmd)
 {
-	int		lent;
+	long long 		lent;
 	int		_concat;
 	int		j;
 	char	*_name;
@@ -45,7 +45,7 @@ void	fill_my_export(char **cmd)
 	while (cmd[++j])
 	{
 		lent = ft_strchr(cmd[j], '=') - cmd[j];
-		if (lent > 0)
+		if (ft_strchr(cmd[j], '='))
 		{
 			_name = ft_substr(cmd[j], 0, lent - (cmd[j][lent - 1] == '+'));
 			_value = ft_strdup(ft_strchr(cmd[j], '=') + 1);
@@ -68,8 +68,6 @@ void	fill_my_export(char **cmd)
 	set_global_envp();
 }
 
-
-//"$?$"
 // if (lent > 0)
 // {
 // 	_value = ft_strdup(ft_strchr(cmd[j], '=') + 1);
