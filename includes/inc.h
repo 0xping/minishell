@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 21:32:58 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/13 14:55:38 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/18 18:35:00 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # include <stdlib.h>
 # include <termios.h>
 # include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 /*---------*/
 # include "./lib.h"
 /*--------*/
