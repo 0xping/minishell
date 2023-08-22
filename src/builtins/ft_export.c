@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:14:22 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/19 17:03:24 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/21 08:47:32 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ void	print_export(int wr)
 	{
 		exp = (t_env *)i->content;
 		ft_putstr_fd("declare -x ", wr);
-		write(1, exp->name, ft_strlen(exp->name));
-		if (exp->value)
-		{
-			ft_putstr_fd("=\"", wr);
-			ft_putstr_fd(exp->value, wr);
-			ft_putchar_fd('"', wr);
-		}
-		write(1, "\n", wr);
+        ft_putstr_fd(exp->name, wr);
+        if (exp->value)
+        {
+            ft_putstr_fd("=\"", wr);
+            ft_putstr_fd(exp->value, wr);
+            ft_putchar_fd('"', wr);
+        }
+        ft_putchar_fd('\n', wr);
 		i = i->next;
 	}
 	ft_lstclear(&export_list, del_env);
