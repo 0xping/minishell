@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_prompt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:00:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/18 15:42:16 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:01:15 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ char	*get_cwd(void)
 	home_env = get_env_by_name("HOME");
 	path = getcwd(0, 0);
 	result = 0;
-	if (char_count(path, '/') == 1)
+	if (!path)
+		return (ft_strdup(""));
+	else if (char_count(path, '/') == 1)
 		return (path);
 	else
 	{
