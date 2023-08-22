@@ -6,7 +6,7 @@
 /*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 11:17:15 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/16 12:32:53 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/21 15:27:54 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int _unset(t_list *i, char **cmd, int j)
 			i->prev->next = i->next;
 		if (i->next)
 			i->next->prev = i->prev;
+		free(((t_env *)tmp->content)->value);
+		free(((t_env *)tmp->content)->name);
 		free(tmp->content);
 		free(tmp);
 		return (1);
