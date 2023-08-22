@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:20:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/18 18:51:51 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:05:52 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTER_H
 # define EXECUTER_H
+
+typedef struct executer
+{
+	int			rd;
+	int			wr;
+	t_command	*cmd;
+	int			i;
+	int			**pipe_fd;
+}				t_executer;
 
 void	executer(t_list *cmd_list);
 void	set_redirections(t_list *cmd_list);
@@ -21,5 +30,17 @@ void	sig_handler(int sig);
 void	set_signal_printing(void);
 bool    is_builtins(char **cmd);
 char	*get_path();
+
+/*--------------------------exc_utils.c---------------------------------*/
+
+void	child(t_executer *ex);
+int     exec_builtins(char **cmd, int wr);
+int     open_redirection_and_heredocs(t_list *cmd_list);
+void	handle_single_builtin(t_executer *executer);
+void    setup_pipe_and_fds(t_executer *executer, t_list *current);
+void	handle_fd(t_executer *executer);
+void	cleanup_pipe_and_fds(t_executer *executer, t_list *current);
+
+/*----------------------------------------------------------------------*/
 
 #endif
