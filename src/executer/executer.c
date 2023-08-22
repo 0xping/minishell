@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 16:56:04 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:33:27 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ void	wait_child(t_list *cmd_list)
 
 	i = 0;
 	while (i < ft_lstsize(cmd_list))
+	{
 		waitpid(g_vars.pid[i++], &d, 0);
-	g_vars.exit_status = WEXITSTATUS(d);
+		g_vars.exit_status = WEXITSTATUS(d);
+	}
 }
 
 void	executer(t_list *cmd_list)

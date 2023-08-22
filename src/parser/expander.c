@@ -6,135 +6,123 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/18 13:16:01 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:28:57 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
 
-char	*get_var_value(char *var, int *ptr_i, bool is_heredoc)
+typedef struct s_expand_data
 {
-	int		i;
-	char	*var_name;
+	char	*before;
+	char	*content;
+	char	*after;
+}			t_expand_data;
+
+char	*get_value(char *name, int *len)
+{
 	t_env	*env_node;
-	char	*var_as_str;
-	char	*s;
+	char	*var_name;
+	int		i;
 
 	i = 0;
-	while (var[i] && !is_char_special(var[i]))
+	while (name[i] && !is_char_special(name[i]))
 		i++;
-	*ptr_i += i;
-	var_name = ft_substr(var, 0, i);
-	if (*var_name == 0)
-	{
-		*ptr_i += 1;
-		if ((var[i] == '"' || var[i] == '\'') && ft_strchr(&var[i + 1], var[i])
-				&& !is_heredoc)
-			return (ft_free((void **)&var_name), ft_strdup(""));
-		if (var[i] == '?')
-			return (ft_free((void **)&var_name), ft_itoa(g_vars.exit_status));
-		var_as_str = char_to_str(var[i]);
-		s = ft_strjoin("$", var_as_str);
-		return (ft_free((void **)&var_name), ft_free((void **)&var_as_str), s);
-	}
+	*len = i;
+	var_name = ft_substr(name, 0, i);
 	env_node = get_env_by_name(var_name);
 	if (env_node)
 		return (ft_free((void **)&var_name), ft_strdup(env_node->value));
 	return (ft_free((void **)&var_name), ft_strdup(""));
 }
 
-bool	should_expand(char *str, char *dollar_ptr)
+char	*expand_dollar(char *word, bool is_heredoc)
 {
-	int		i;
-	bool	result;
-	bool	single_quoted;
-	bool	double_quoted;
+	t_expand_data	dt;
+	char			*tmp;
+	int				len;
+	char			*result;
 
-	i = 0;
-	result = true;
-	single_quoted = false;
-	double_quoted = false;
-	while (str + i < dollar_ptr)
+	dt.before = ft_substr(word, 0, ft_strchr(word, '$') - word);
+	dt.content = get_value(ft_strchr(word, '$') + 1, &len);
+	if (len == 0)
 	{
-		if (str[i] == '\'' && !double_quoted)
-			single_quoted = !single_quoted;
-		else if (str[i] == '"' && !single_quoted)
-			double_quoted = !double_quoted;
-		i++;
+		if (word[len + 1] == '?')
+		{
+			free(dt.content);
+			dt.content = ft_itoa(g_vars.exit_status);
+			len++;
+		}
+		else if ((word[len + 1] != '"' && word[len + 1] != '\'') || is_heredoc)
+		{
+			free(dt.content);
+			dt.content = ft_strdup("$");
+		}
 	}
-	if (single_quoted)
-		result = false;
-	return (result);
+	tmp = ft_strdup(ft_strchr(word, '$') + len + 1);
+	dt.after = expander(tmp, false, false);
+	result = join_strings((char *[]){dt.before, dt.content, dt.after}, 3, "");
+	return (free(tmp), free(dt.before), free(dt.content), free(dt.after),
+		result);
 }
 
-void	freeable_join(char **s1, char *s2)
+char	*expand_sq(char *word, bool expand, bool is_heredoc)
 {
-	char	*tmp;
+	t_expand_data	data;
+	char			*tmp;
+	char			*quote_content;
+	char			*result;
 
-	tmp = *s1;
-	*s1 = ft_strjoin(tmp, s2);
+	data.before = ft_substr(word, 0, ft_strchr(word, '\'') - word);
+	quote_content = get_quote_content(ft_strchr(word, '\''));
+	if (expand || is_heredoc)
+	{
+		data.content = expander(quote_content, false, is_heredoc);
+		free(quote_content);
+	}
+	else
+		data.content = quote_content;
+	tmp = ft_strdup(ft_strchr(word, '\'') + ft_strlen(data.content) + 2);
+	data.after = expander(tmp, expand, is_heredoc);
 	ft_free((void **)&tmp);
-	ft_free((void **)&s2);
+	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
+			"'");
+	return (free(data.before), free(data.content), free(data.after), result);
 }
 
-// char	*expander(char *word, bool is_heredoc)
-// {
-// 	int		i;
-// 	char	*result;
-
-// 	i = 0;
-// 	result = ft_strdup("");
-// 	while (word[i])
-// 	{
-// 		if (word[i] == '$' && word[i + 1] && (is_heredoc || should_expand(word,
-// 					word + i)))
-// 		{
-// 			if ((word[i + 1] == '\"' || word[i + 1] == '"') && is_heredoc)
-// 				push_char_to_str(&result, '$');
-// 			else
-// 				freeable_join(&result, get_var_value(&word[i + 1], &i));
-// 		}
-// 		else
-// 			push_char_to_str(&result, word[i]);
-// 		i++;
-// 	}
-// 	return (result);
-// }
-
-char	*expander(char *word, bool is_heredoc)
+char	*expand_dq(char *word)
 {
-	int		i;
-	char	*result;
+	t_expand_data	data;
+	char			*tmp;
+	char			*result;
+	char			*quote_content;
+
+	data.before = ft_substr(word, 0, ft_strchr(word, '"') - word);
+	quote_content = get_quote_content(ft_strchr(word, '"'));
+	data.content = expander(quote_content, false, false);
+	tmp = ft_strdup(ft_strchr(word, '"') + ft_strlen(quote_content) + 2);
+	data.after = expander(tmp, false, false);
+	ft_free((void **)&tmp);
+	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
+			"\"");
+	return (free(quote_content), free(data.before), free(data.content),
+		free(data.after), result);
+}
+
+char	*expander(char *word, bool expand, bool is_heredoc)
+{
+	int	i;
 
 	i = 0;
-	result = ft_strdup("");
 	while (word[i])
 	{
-		if (word[i] == '$' && word[i + 1] && (is_heredoc || should_expand(word,
-					word + i)))
-			freeable_join(&result, get_var_value(word + i + 1, &i, is_heredoc));
-		else
-			push_char_to_str(&result, word[i]);
+		if (word[i] == '$')
+			return (expand_dollar(word, is_heredoc));
+		if (word[i] == '\'')
+			return (expand_sq(word, expand, is_heredoc));
+		if (word[i] == '"')
+			return (expand_dq(word));
 		i++;
 	}
-	return (result);
+	return (ft_strdup(word));
 }
-
-// char	*expander(char *word, bool expand)
-// {
-// 	int		i;
-// 	char	*result;
-
-// 	i = 0;
-// 	result = ft_strdup("");
-// 	while (word[i])
-// 	{
-// 		if (word[i] == '$' && word[i + 1] && expand && should_expand(word,
-// 				word + i))
-// 			freeable_join(&result, get_var_value(word + i + 1, &i));
-// 		else
-// 			push_char_to_str(&result, word[i]);
-// 		i++;
-// 	}
-// 	return (result);
-// }

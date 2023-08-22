@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/18 19:18:06 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:24:50 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_cd(char **s)
 	}
 	else if (!s[1])
 	{
-		HOME = expander("$HOME", 1);
+		HOME = expander("$HOME", false, false);
 		if (chdir(HOME) == 0)
 		{
 			ft_free((void **)&HOME);
