@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 16:28:57 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:51:49 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*expand_sq(char *word, bool expand, bool is_heredoc)
 	}
 	else
 		data.content = quote_content;
-	tmp = ft_strdup(ft_strchr(word, '\'') + ft_strlen(data.content) + 2);
+	tmp = ft_strdup(ft_strchr(word, '\'') + ft_strlen(quote_content) + 2);
 	data.after = expander(tmp, expand, is_heredoc);
 	ft_free((void **)&tmp);
 	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
@@ -99,9 +99,9 @@ char	*expand_dq(char *word)
 
 	data.before = ft_substr(word, 0, ft_strchr(word, '"') - word);
 	quote_content = get_quote_content(ft_strchr(word, '"'));
-	data.content = expander(quote_content, false, false);
+	data.content = expander(quote_content, true, false);
 	tmp = ft_strdup(ft_strchr(word, '"') + ft_strlen(quote_content) + 2);
-	data.after = expander(tmp, false, false);
+	data.after = expander(tmp, true, false);
 	ft_free((void **)&tmp);
 	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
 			"\"");
