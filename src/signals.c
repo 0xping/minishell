@@ -6,19 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:04:37 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/15 17:27:00 by aait-lfd         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 17:04:37 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/15 17:25:52 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:22:47 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +20,7 @@ void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_vars.exit_status = 130;
 	}
 	if (sig == SIGQUIT)
 	{
@@ -40,11 +29,15 @@ void	sig_handler(int sig)
 	}
 }
 
-void	set_signal_printing(void)
+struct termios	*set_signal_printing(void)
 {
+	struct termios	*def;
 	struct termios	new;
 
+	def = ft_calloc(sizeof(struct termios), 1);
+	tcgetattr(0, def);
 	tcgetattr(0, &new);
 	new.c_lflag &= ~ECHOCTL;
 	tcsetattr(0, TCSANOW, &new);
+	return (def);
 }

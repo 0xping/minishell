@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:20:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 17:05:52 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:23:51 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_redirections(t_list *cmd_list);
 void	set_heredocs(t_list *cmd_list);
 void	check_16_heredocs(t_list *cmd_list);
 void	sig_handler(int sig);
-void	set_signal_printing(void);
+struct termios	*set_signal_printing(void);
 bool    is_builtins(char **cmd);
 char	*get_path();
 

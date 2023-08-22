@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/20 15:08:28 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/22 17:22:43 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,18 @@ void	init_global_vars(const char *envp[])
 
 int	main(int ac, char const *av[], char const *envp[])
 {
-	char	*input;
-	t_list	*commands;
-	char	*tmp;
-	char	*prompt;
+	char			*input;
+	t_list			*commands;
+	char			*tmp;
+	char			*prompt;
+	struct termios	*def_termios;
 
 	ac += 0;
 	av += 0;
 	init_global_vars(envp);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	set_signal_printing();
+	def_termios = set_signal_printing();
 	while (1)
 	{
 		prompt = get_prompt();
@@ -88,7 +89,8 @@ int	main(int ac, char const *av[], char const *envp[])
 		ft_lstclear(&commands, del_command);
 		ft_free((void **)&input);
 		// system("leaks minishell");
-		//system("lsof minishell");
+		// system("lsof minishell");
 	}
+	tcsetattr(0, TCSANOW, def_termios);
 	return (0);
 }
