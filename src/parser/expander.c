@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 19:51:49 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:54:18 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ typedef struct s_expand_data
 	char	*content;
 	char	*after;
 }			t_expand_data;
+
+char		*get_value(char *name, int *len);
+char		*expand_dollar(char *word, bool expand_sq, bool is_heredoc);
+char		*expand_sq(char *word, bool is_heredoc);
+char		*expand_dq(char *word);
+char		*_expander(char *word, bool is_heredoc);
+char		*expander(char *word, bool is_heredoc);
 
 char	*get_value(char *name, int *len)
 {
@@ -36,13 +43,16 @@ char	*get_value(char *name, int *len)
 	return (ft_free((void **)&var_name), ft_strdup(""));
 }
 
-char	*expand_dollar(char *word, bool is_heredoc)
+char	*expand_dollar(char *word, bool expand_sq, bool is_heredoc)
 {
 	t_expand_data	dt;
 	char			*tmp;
 	int				len;
 	char			*result;
 
+	char *(*ex)(char *, bool) = expander;
+	if (expand_sq)
+		ex = _expander;
 	dt.before = ft_substr(word, 0, ft_strchr(word, '$') - word);
 	dt.content = get_value(ft_strchr(word, '$') + 1, &len);
 	if (len == 0)
@@ -60,13 +70,13 @@ char	*expand_dollar(char *word, bool is_heredoc)
 		}
 	}
 	tmp = ft_strdup(ft_strchr(word, '$') + len + 1);
-	dt.after = expander(tmp, false, false);
+	dt.after = ex(tmp, false);
 	result = join_strings((char *[]){dt.before, dt.content, dt.after}, 3, "");
 	return (free(tmp), free(dt.before), free(dt.content), free(dt.after),
 		result);
 }
 
-char	*expand_sq(char *word, bool expand, bool is_heredoc)
+char	*expand_sq(char *word, bool is_heredoc)
 {
 	t_expand_data	data;
 	char			*tmp;
@@ -75,18 +85,18 @@ char	*expand_sq(char *word, bool expand, bool is_heredoc)
 
 	data.before = ft_substr(word, 0, ft_strchr(word, '\'') - word);
 	quote_content = get_quote_content(ft_strchr(word, '\''));
-	if (expand || is_heredoc)
+	if (is_heredoc)
 	{
-		data.content = expander(quote_content, false, is_heredoc);
+		data.content = expander(quote_content, is_heredoc);
 		free(quote_content);
 	}
 	else
 		data.content = quote_content;
 	tmp = ft_strdup(ft_strchr(word, '\'') + ft_strlen(quote_content) + 2);
-	data.after = expander(tmp, expand, is_heredoc);
+	data.after = expander(tmp, is_heredoc);
 	ft_free((void **)&tmp);
 	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
-			"'");
+		"'");
 	return (free(data.before), free(data.content), free(data.after), result);
 }
 
@@ -99,17 +109,17 @@ char	*expand_dq(char *word)
 
 	data.before = ft_substr(word, 0, ft_strchr(word, '"') - word);
 	quote_content = get_quote_content(ft_strchr(word, '"'));
-	data.content = expander(quote_content, true, false);
+	data.content = _expander(quote_content, false);
 	tmp = ft_strdup(ft_strchr(word, '"') + ft_strlen(quote_content) + 2);
-	data.after = expander(tmp, true, false);
+	data.after = expander(tmp, false);
 	ft_free((void **)&tmp);
 	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
-			"\"");
+		"\"");
 	return (free(quote_content), free(data.before), free(data.content),
 		free(data.after), result);
 }
 
-char	*expander(char *word, bool expand, bool is_heredoc)
+char	*_expander(char *word, bool is_heredoc)
 {
 	int	i;
 
@@ -117,9 +127,23 @@ char	*expander(char *word, bool expand, bool is_heredoc)
 	while (word[i])
 	{
 		if (word[i] == '$')
-			return (expand_dollar(word, is_heredoc));
+			return (expand_dollar(word, true, is_heredoc));
+		i++;
+	}
+	return (ft_strdup(word));
+}
+
+char	*expander(char *word, bool is_heredoc)
+{
+	int	i;
+
+	i = 0;
+	while (word[i])
+	{
+		if (word[i] == '$' && word[i + 1])
+			return (expand_dollar(word, false, is_heredoc));
 		if (word[i] == '\'')
-			return (expand_sq(word, expand, is_heredoc));
+			return (expand_sq(word, is_heredoc));
 		if (word[i] == '"')
 			return (expand_dq(word));
 		i++;

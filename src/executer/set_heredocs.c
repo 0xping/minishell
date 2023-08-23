@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_heredocs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/23 15:36:58 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:56:40 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,35 @@ char	*get_heredoc_filename(char *del, int index)
 	return (filename);
 }
 
-static void	create_heredoc_file(t_file *file, int index)
+static char	*create_heredoc_file(t_file *file, int index)
 {
 	char	*file_name;
 	int		fd;
 	char	*line;
 	char	*tmp;
+	char	*del;
 
-	file_name = get_heredoc_filename(file->name, index);
+	del = remove_quotes(file->name);
+	file_name = get_heredoc_filename(del, index);
 	fd = open(file_name, O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0644);
 	line = 0;
-	while ((!line || ft_strcmp(line, file->name)) && !g_vars.heredoc_sig)
+	while ((!line || ft_strcmp(line, del)) && !g_vars.heredoc_sig)
 	{
 		ft_free((void **)&line);
 		line = readline(">");
-		if (line == 0)
-			break ;
-		if (ft_strcmp(line, file->name))
+		if (line && ft_strcmp(line, del))
 		{
 			if (!ft_strchr(file->name, '"') && !ft_strchr(file->name, '\''))
 			{
 				tmp = line;
-				line = expander(line, false, true);
+				line = expander(line, true);
 				ft_free((void **)&tmp);
 			}
 			ft_putendl_fd(line, fd);
 		}
 	}
-	close(fd);
-	ft_free((void **)&line);
-	ft_free((void **)&file->name);
-	file->name = file_name;
+	return (close(fd), ft_free((void **)&line), ft_free((void **)&del),
+		ft_free((void **)&file->name), (file->name = file_name));
 }
 
 void	set_heredocs(t_list *cmd_list)

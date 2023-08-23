@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/23 11:39:50 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/23 17:55:45 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	null_arg(char *cur_path, char *new_path)
 {
 	char	*home;
 
-	home = expander("$HOME", false, false);
+	home = expander("$HOME", false);
 	if (chdir(home) == 0)
 	{
 		ft_free((void **)&home);
