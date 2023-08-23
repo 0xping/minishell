@@ -12,9 +12,9 @@
 
 #include "../../includes/inc.h"
 
-int unset_one_arg(t_list *i, char **cmd, int j)
+int	unset_one_arg(t_list *i, char **cmd, int j)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (!cmd[1])
 		return (1);
@@ -30,9 +30,9 @@ int unset_one_arg(t_list *i, char **cmd, int j)
 	return (0);
 }
 
-int _unset(t_list *i, char **cmd, int j)
+int	_unset(t_list *i, char **cmd, int j)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	if (!ft_strcmp(((t_env *)i->content)->name, cmd[j]))
 	{
@@ -50,10 +50,10 @@ int _unset(t_list *i, char **cmd, int j)
 	return (0);
 }
 
-void ft_unset(char **cmd)
+void	ft_unset(char **cmd)
 {
-	t_list *i;
-	int j;
+	t_list	*i;
+	int		j;
 
 	j = 0;
 	while (cmd[++j])
@@ -61,11 +61,11 @@ void ft_unset(char **cmd)
 		i = g_vars.env;
 		i->prev = NULL;
 		if (unset_one_arg(i, cmd, j))
-			return;
+			return ;
 		while (i)
 		{
 			if (_unset(i, cmd, j))
-				break;
+				break ;
 			i = i->next;
 		}
 	}

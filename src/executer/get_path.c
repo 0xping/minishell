@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:47:18 by xshel             #+#    #+#             */
-/*   Updated: 2023/08/19 22:11:14 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:03:50 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 char	**get_lines(void)
 {
 	char	**paths;
-	t_env	*PATH_env;
+	t_env	*path_env;
 
-	PATH_env = get_env_by_name("PATH");
-	if (!PATH_env)
+	path_env = get_env_by_name("PATH");
+	if (!path_env)
 	{
 		write(2, "command not found\n", 19);
 		exit(127);
 	}
-	paths = ft_split(PATH_env->value, ':');
+	paths = ft_split(path_env->value, ':');
 	return (paths);
 }
 
@@ -47,13 +47,14 @@ void	check_cmd(char *cmd, char **op)
 	}
 }
 
-void free_paths(char **paths)
+void	free_paths(char **paths)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (paths[i])
 		free(paths[i++]);
 	free(paths);
-
 }
 
 char	*get_path(char **cmd)
@@ -74,7 +75,7 @@ char	*get_path(char **cmd)
 		path = ft_strjoin(tmp, cmd[0]);
 		free(tmp);
 		if (access(path, X_OK) != -1)
-			return (free_paths(op),path);
+			return (free_paths(op), path);
 		free(path);
 		j++;
 	}

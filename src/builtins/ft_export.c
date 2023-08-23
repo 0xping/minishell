@@ -6,7 +6,7 @@
 /*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:14:22 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/21 08:47:32 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:37:01 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,21 @@ t_list	*dup_env(t_list *_env)
 	if (!_env)
 		return (NULL);
 	i = ft_lstnew(new_env_node(((t_env *)_env->content)->name,
-			((t_env *)_env->content)->value));
+				((t_env *)_env->content)->value));
 	i->next = dup_env(_env->next);
 	return (i);
+}
+
+void	swap_content(t_list *save, t_list *first)
+{
+	void	*exp;
+
+	if (save != first)
+	{
+		exp = first->content;
+		first->content = save->content;
+		save->content = exp;
+	}
 }
 
 t_list	*sort_export(void)
@@ -30,7 +42,6 @@ t_list	*sort_export(void)
 	t_list	*new;
 	t_list	*first;
 	t_list	*second;
-	void	*exp;
 
 	new = dup_env(g_vars.env);
 	first = new;
@@ -46,12 +57,7 @@ t_list	*sort_export(void)
 				save = second;
 			second = second->next;
 		}
-		if (save != first)
-		{
-			exp = first->content;
-			first->content = save->content;
-			save->content = exp;
-		}
+		swap_content(save, first);
 		first = first->next;
 	}
 	return (new);
@@ -69,14 +75,14 @@ void	print_export(int wr)
 	{
 		exp = (t_env *)i->content;
 		ft_putstr_fd("declare -x ", wr);
-        ft_putstr_fd(exp->name, wr);
-        if (exp->value)
-        {
-            ft_putstr_fd("=\"", wr);
-            ft_putstr_fd(exp->value, wr);
-            ft_putchar_fd('"', wr);
-        }
-        ft_putchar_fd('\n', wr);
+		ft_putstr_fd(exp->name, wr);
+		if (exp->value)
+		{
+			ft_putstr_fd("=\"", wr);
+			ft_putstr_fd(exp->value, wr);
+			ft_putchar_fd('"', wr);
+		}
+		ft_putchar_fd('\n', wr);
 		i = i->next;
 	}
 	ft_lstclear(&export_list, del_env);

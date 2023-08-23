@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:20:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 17:23:51 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:10:52 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct executer
 	int			**pipe_fd;
 }				t_executer;
 
-void	executer(t_list *cmd_list);
+int		executer(t_list *cmd_list);
 void	set_redirections(t_list *cmd_list);
 void	set_heredocs(t_list *cmd_list);
 void	check_16_heredocs(t_list *cmd_list);

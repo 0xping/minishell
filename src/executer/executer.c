@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 17:33:27 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:14:34 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
-
-// typedef struct executer
-// {
-// 	int			rd;
-// 	int			wr;
-// 	t_command	*cmd;
-// 	int			i;
-// 	int			**pipe_fd;
-// }				t_executer;
-
 
 void	cleanup(int **pipe_fd)
 {
@@ -89,14 +79,14 @@ void	wait_child(t_list *cmd_list)
 	}
 }
 
-void	executer(t_list *cmd_list)
+int	executer(t_list *cmd_list)
 {
 	t_list		*current;
 	t_executer	*executer;
 
 	current = cmd_list;
 	if (open_redirection_and_heredocs(cmd_list))
-		return ;
+		return (1);
 	executer = malloc(sizeof(t_executer));
 	g_vars.pid = malloc(sizeof(pid_t) * ft_lstsize(cmd_list));
 	executer->pipe_fd = ft_calloc(sizeof(int *), ft_lstsize(cmd_list) + 1);
@@ -115,6 +105,5 @@ void	executer(t_list *cmd_list)
 	}
 	wait_child(cmd_list);
 	cleanup(executer->pipe_fd);
-	free(executer);
-	ft_free((void **)&g_vars.pid);
+	return (free(executer), ft_free((void **)&g_vars.pid), 0);
 }

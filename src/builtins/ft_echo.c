@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:16:59 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/19 17:04:40 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:35:43 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,4 @@ void	ft_echo(char **args, int wr)
 	}
 	if (!n_flag)
 		ft_putchar_fd('\n', wr);
-	// close(wr);
 }

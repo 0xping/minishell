@@ -3,21 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:17:47 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/20 17:00:42 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:03:05 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
+
+typedef struct s_export
+{
+	char	*name;
+	char	*value;
+	int		concat;
+}			t_export;
 
 int	check_export_errors(char *ind, char *name)
 {
 	int	i;
 
 	i = 0;
-
 	while (name[i] || !*name)
 	{
 		if (!*name || is_char_special(name[i]) || ft_isdigit(name[0]))
@@ -33,48 +39,42 @@ int	check_export_errors(char *ind, char *name)
 	return (0);
 }
 
+void	dupoin(t_export *exp, char **cmd, int j, long long lent)
+{
+	if (ft_strchr(cmd[j], '='))
+	{
+		exp->name = ft_substr(cmd[j], 0, lent - (cmd[j][lent - 1] == '+'));
+		exp->value = ft_strdup(ft_strchr(cmd[j], '=') + 1);
+		exp->concat = (cmd[j][lent - 1] == '+');
+	}
+	else
+	{
+		exp->name = ft_strdup(cmd[j]);
+		exp->concat = 0;
+		exp->value = 0;
+		if (lent == 0)
+			exp->value = ft_strdup("");
+	}
+}
+
 void	fill_my_export(char **cmd)
 {
-	long long 		lent;
-	int		_concat;
-	int		j;
-	char	*_name;
-	char	*_value;
+	long long	lent;
+	int			j;
+	t_export	*exp;
 
+	exp = malloc(sizeof(t_export));
 	j = 0;
 	while (cmd[++j])
 	{
 		lent = ft_strchr(cmd[j], '=') - cmd[j];
-		if (ft_strchr(cmd[j], '='))
-		{
-			_name = ft_substr(cmd[j], 0, lent - (cmd[j][lent - 1] == '+'));
-			_value = ft_strdup(ft_strchr(cmd[j], '=') + 1);
-			_concat = (cmd[j][lent - 1] == '+');
-		}
+		dupoin(exp, cmd, j, lent);
+		if (!check_export_errors(cmd[j], exp->name))
+			upsert_env_node(ft_strdup(exp->name), exp->value, exp->concat);
 		else
-		{
-			_name = ft_strdup(cmd[j]);
-			_concat = 0;
-			_value = 0;
-			if (lent == 0)
-				_value = ft_strdup("");
-		}
-		if (!check_export_errors(cmd[j], _name))
-			upsert_env_node(ft_strdup(_name), _value, _concat);
-		else
-			ft_free((void **)&_value);
-		ft_free((void **)&_name);
+			ft_free((void **)&exp->value);
+		ft_free((void **)&exp->name);
 	}
+	free(exp);
 	set_global_envp();
 }
-
-// if (lent > 0)
-// {
-// 	_value = ft_strdup(ft_strchr(cmd[j], '=') + 1);
-// 	_name = ft_substr(cmd[j], 0, lent - (cmd[j][lent - 1] == '+'));
-// 	upsert_env_node(_name, _value, (cmd[j][lent - 1] == '+'));
-// }
-// else if (lent == 0)
-// 	upsert_env_node(ft_strdup(cmd[j]), ft_strdup(""), 0);
-// else
-// 	upsert_env_node(ft_strdup(cmd[j]), 0, 0);
