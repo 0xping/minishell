@@ -6,7 +6,7 @@
 /*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/23 11:14:34 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:32:15 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,18 @@ void	wait_child(t_list *cmd_list)
 	int	d;
 
 	i = 0;
-	while (i < ft_lstsize(cmd_list))
+
+	t_list *i_cmd;
+	i_cmd = cmd_list;
+	while (i_cmd)
 	{
-		waitpid(g_vars.pid[i++], &d, 0);
-		g_vars.exit_status = WEXITSTATUS(d);
+		if (g_vars.pid[i])
+		{
+			waitpid(g_vars.pid[i], &d, 0);
+			g_vars.exit_status = WEXITSTATUS(d);
+		}
+		i++; 	
+		i_cmd = i_cmd->next;
 	}
 }
 
@@ -88,7 +96,7 @@ int	executer(t_list *cmd_list)
 	if (open_redirection_and_heredocs(cmd_list))
 		return (1);
 	executer = malloc(sizeof(t_executer));
-	g_vars.pid = malloc(sizeof(pid_t) * ft_lstsize(cmd_list));
+	g_vars.pid = ft_calloc(sizeof(pid_t) , ft_lstsize(cmd_list));
 	executer->pipe_fd = ft_calloc(sizeof(int *), ft_lstsize(cmd_list) + 1);
 	executer->i = 0;
 	while (current)
@@ -103,6 +111,7 @@ int	executer(t_list *cmd_list)
 		}
 		current = current->next;
 	}
+	// if (!is_builtins(executer->cmd->command) || ft_lstsize(cmd_list) > 1)
 	wait_child(cmd_list);
 	cleanup(executer->pipe_fd);
 	return (free(executer), ft_free((void **)&g_vars.pid), 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_heredocs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 15:24:56 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 15:36:58 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	heredoc_sigint_handler(int sigint)
 {
 	close(0);
 	g_vars.heredoc_sig = 1;
+	g_vars.exit_status = 130;
 	printf("\n");
 	(void)sigint;
 }
