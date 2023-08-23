@@ -9,7 +9,7 @@ BOLD = \033[1m
 
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LDFLAGS = -lreadline -L$(shell brew --prefix readline)/lib
 
 # Target name
