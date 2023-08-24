@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/23 18:05:41 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:58:01 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,16 @@ static char	*create_heredoc_file(t_file *file, int index)
 		line = readline(">");
 		if (line == 0)
 			break;
-		if (line && ft_strcmp(line, del))
+		if (ft_strcmp(line, del))
 		{
 			if (!ft_strchr(file->name, '"') && !ft_strchr(file->name, '\''))
 			{
-				tmp = line;
-				line = expander(line, true);
+				tmp = expander(line, true);
+				ft_putendl_fd(tmp, fd);
 				ft_free((void **)&tmp);
 			}
-			ft_putendl_fd(line, fd);
+			else
+				ft_putendl_fd(line, fd);
 		}
 	}
 	return (close(fd), ft_free((void **)&line), ft_free((void **)&del),
