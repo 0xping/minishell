@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/23 17:55:45 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/23 21:10:01 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ void	ft_cd(char **s)
 	char	*cur_path;
 	char	*new_path;
 
-	cur_path = NULL;
 	new_path = NULL;
-	cur_path = getcwd(cur_path, sizeof(cur_path));
+	cur_path = getcwd(0, sizeof(cur_path));
 	add_pwd(cur_path, 1);
 	if (chdir(s[1]) == 0)
 	{
-		new_path = getcwd(new_path, sizeof(new_path));
+		new_path = getcwd(0, sizeof(new_path));
 		add_pwd(cur_path, 0);
 		add_pwd(new_path, 1);
+		free(new_path);
 	}
 	else if (!s[1])
 		null_arg(cur_path, new_path);
@@ -63,4 +63,5 @@ void	ft_cd(char **s)
 		g_vars.exit_status = 1;
 		perror("minishell: cd");
 	}
+	free(cur_path);
 }
