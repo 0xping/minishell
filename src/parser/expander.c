@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/23 17:54:18 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/24 16:22:38 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ char	*expand_sq(char *word, bool is_heredoc)
 	data.before = ft_substr(word, 0, ft_strchr(word, '\'') - word);
 	quote_content = get_quote_content(ft_strchr(word, '\''));
 	if (is_heredoc)
-	{
 		data.content = expander(quote_content, is_heredoc);
-		free(quote_content);
-	}
 	else
 		data.content = quote_content;
 	tmp = ft_strdup(ft_strchr(word, '\'') + ft_strlen(quote_content) + 2);
@@ -97,7 +94,7 @@ char	*expand_sq(char *word, bool is_heredoc)
 	ft_free((void **)&tmp);
 	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
 		"'");
-	return (free(data.before), free(data.content), free(data.after), result);
+	return (free(quote_content),free(data.before), free(data.content), free(data.after), result);
 }
 
 char	*expand_dq(char *word)
