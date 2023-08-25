@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/24 16:22:38 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:15:55 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ char	*expand_dollar(char *word, bool expand_sq, bool is_heredoc)
 	dt.content = get_value(ft_strchr(word, '$') + 1, &len);
 	if (len == 0)
 	{
-		if (word[len + 1] == '?')
+		if (word[ft_strlen(dt.before) + 1] == '?')
 		{
 			free(dt.content);
 			dt.content = ft_itoa(g_vars.exit_status);
 			len++;
 		}
-		else if ((word[len + 1] != '"' && word[len + 1] != '\'') || is_heredoc)
+		else if ((word[ft_strlen(dt.before) + 1] != '"'
+				&& word[ft_strlen(dt.before) + 1] != '\'') || is_heredoc)
 		{
 			free(dt.content);
 			dt.content = ft_strdup("$");
@@ -94,7 +95,8 @@ char	*expand_sq(char *word, bool is_heredoc)
 	ft_free((void **)&tmp);
 	result = join_strings((char *[]){data.before, data.content, data.after}, 3,
 		"'");
-	return (free(quote_content),free(data.before), free(data.content), free(data.after), result);
+	return (free(quote_content), free(data.before), free(data.content),
+		free(data.after), result);
 }
 
 char	*expand_dq(char *word)
