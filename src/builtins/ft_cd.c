@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/25 16:37:57 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:55:51 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	ft_cd(char **s)
 
 	g_vars.exit_status = 0;
 	new_path = NULL;
-	cur_path = getcwd(0, sizeof(cur_path));
+	cur_path = getcwd(0, 0);
 	add_pwd(cur_path, 1);
 	if (chdir(s[1]) == 0)
 	{
-		new_path = getcwd(0, sizeof(new_path));
+		new_path = getcwd(0, 0);
 		add_pwd(cur_path, 0);
 		add_pwd(new_path, 1);
 	}
