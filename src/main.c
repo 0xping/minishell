@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/25 17:27:25 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:13:56 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int ac, char const *av[], char const *envp[])
 	av += 0;
 	init_global_vars(envp);
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	def_termios = set_signal_printing();
 	while (1)
 	{
@@ -88,8 +88,6 @@ int	main(int ac, char const *av[], char const *envp[])
 		(parser(commands)) && (executer(commands), 1);
 		ft_lstclear(&commands, del_command);
 		ft_free((void **)&input);
-		// system("leaks minishell");
-		// system("lsof minishell");
 	}
 	tcsetattr(0, TCSANOW, def_termios);
 	printf("exit\n");

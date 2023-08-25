@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:04:37 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 17:22:47 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:14:19 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ void	sig_handler(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 		g_vars.exit_status = 130;
-	}
-	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
 	}
 }
 
