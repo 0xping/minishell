@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:18:46 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/25 14:08:49 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:44:09 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	ft_env(int wr)
 	t_list	*i;
 	t_env	*content;
 
+	g_vars.exit_status = 0;
 	i = g_vars.env;
 	while (i)
 	{

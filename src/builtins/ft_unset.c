@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 11:17:15 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/25 15:03:57 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:42:40 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_unset(char **cmd)
 	t_list	*i;
 	int		j;
 
+	g_vars.exit_status = 0;
 	j = 0;
 	while (cmd[++j])
 	{
