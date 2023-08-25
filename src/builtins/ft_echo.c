@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 18:16:59 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/23 11:35:43 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/25 13:17:24 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ bool	is_n_option(char *str)
 	i = 0;
 	if (ft_strlen(str) <= 1)
 		return (false);
-	if (str[i] == '-')
-		i++;
+	if (str[i] != '-')
+		return false;
+	i++;
 	while (str[i] == 'n')
 		i++;
 	return (str[i] == 0);
