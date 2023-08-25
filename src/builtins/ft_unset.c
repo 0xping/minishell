@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 11:17:15 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/21 15:27:54 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:03:57 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,17 @@ void	ft_unset(char **cmd)
 	while (cmd[++j])
 	{
 		i = g_vars.env;
-		i->prev = NULL;
-		if (unset_one_arg(i, cmd, j))
-			return ;
-		while (i)
+		if (i)
 		{
-			if (_unset(i, cmd, j))
-				break ;
-			i = i->next;
+			i->prev = NULL;
+			if (unset_one_arg(i, cmd, j))
+				return ;
+			while (i)
+			{
+				if (_unset(i, cmd, j))
+					break ;
+				i = i->next;
+			}
 		}
 	}
 }
