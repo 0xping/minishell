@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/25 15:15:55 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:19:23 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ char	*get_value(char *name, int *len)
 	int		i;
 
 	i = 0;
-	while (name[i] && !is_char_special(name[i]))
+	while (name[i] && !is_char_special(name[i]) && !ft_isdigit(name[i]))
 		i++;
-	*len = i;
+	*len = i + ft_isdigit(name[i]);
 	var_name = ft_substr(name, 0, i);
 	env_node = get_env_by_name(var_name);
 	if (env_node)
