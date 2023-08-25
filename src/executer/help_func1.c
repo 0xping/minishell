@@ -3,20 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   help_func1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 16:50:09 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/23 15:38:06 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:13:02 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
 
+bool	is_builtins(char **cmd)
+{
+	if (!ft_strcmp(cmd[0], "cd"))
+		return (1);
+	if (!ft_strcmp(cmd[0], "echo"))
+		return (1);
+	if (!ft_strcmp(cmd[0], "env"))
+		return (1);
+	if (!ft_strcmp(cmd[0], "export"))
+		return (1);
+	if (!ft_strcmp(cmd[0], "unset"))
+		return (1);
+	if (!ft_strcmp(cmd[0], "exit"))
+		return (1);
+	if (!ft_strcmp(cmd[0], "pwd"))
+		return (1);
+	return (0);
+}
+
 int	exec_builtins(char **cmd, int wr)
 {
 	if (cmd == 0)
 		return (0);
-	g_vars.exit_status = 0;
 	if (!ft_strcmp(*cmd, "cd"))
 		ft_cd(cmd);
 	if (!ft_strcmp(*cmd, "echo"))

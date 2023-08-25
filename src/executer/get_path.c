@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:47:18 by xshel             #+#    #+#             */
-/*   Updated: 2023/08/23 12:03:50 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:16:40 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
+#include <dirent.h>
 
 char	**get_lines(void)
 {
@@ -20,7 +21,8 @@ char	**get_lines(void)
 	path_env = get_env_by_name("PATH");
 	if (!path_env)
 	{
-		write(2, "command not found\n", 19);
+		ft_putstr_fd("minishell : command not found\n", 2);
+		g_vars.exit_status = 127;
 		exit(127);
 	}
 	paths = ft_split(path_env->value, ':');
@@ -40,8 +42,8 @@ void	check_cmd(char *cmd, char **op)
 		{
 			while (op[j])
 				free(op[j++]);
-			write(2, "Error : No such file or directory\n", 35);
-			exit(1);
+			g_vars.exit_status = 127;
+			exit(127);
 		}
 		i++;
 	}
@@ -57,14 +59,32 @@ void	free_paths(char **paths)
 	free(paths);
 }
 
+void	check_dir(char *s)
+{
+	DIR	*dir;
+
+	dir = opendir(s);
+	if (dir)
+	{
+		g_vars.exit_status = 126;
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(": Is a directory\n", 2);
+		g_vars.exit_status = 126;
+		exit(g_vars.exit_status);
+	}
+}
+
 char	*get_path(char **cmd)
 {
-	int		j;
-	char	**op;
-	char	*path;
-	char	*tmp;
+	int j;
+	char **op;
+	char *path;
+	char *tmp;
 
 	j = 0;
+	g_vars.exit_status = 0;
+	check_dir(cmd[0]);
 	if (access(cmd[0], X_OK) == 0)
 		return (cmd[0]);
 	op = get_lines();
@@ -80,25 +100,7 @@ char	*get_path(char **cmd)
 		j++;
 	}
 	free_paths(op);
-	ft_putstr_fd("command not found\n", 2);
+	ft_putstr_fd("minishell : command not found\n", 2);
+	g_vars.exit_status = 127;
 	return (exit(127), NULL);
-}
-
-bool	is_builtins(char **cmd)
-{
-	if (!ft_strcmp(cmd[0], "cd"))
-		return (1);
-	if (!ft_strcmp(cmd[0], "echo"))
-		return (1);
-	if (!ft_strcmp(cmd[0], "env"))
-		return (1);
-	if (!ft_strcmp(cmd[0], "export"))
-		return (1);
-	if (!ft_strcmp(cmd[0], "unset"))
-		return (1);
-	if (!ft_strcmp(cmd[0], "exit"))
-		return (1);
-	if (!ft_strcmp(cmd[0], "pwd"))
-		return (1);
-	return (0);
 }

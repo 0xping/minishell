@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/23 21:10:01 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:37:57 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	null_arg(char *cur_path, char *new_path)
 	}
 	else
 	{
+		ft_free((void **)&home);
 		g_vars.exit_status = 1;
-		perror("minishell: cd:");
+		perror("minishell: cd");
 	}
 }
 
@@ -46,6 +47,7 @@ void	ft_cd(char **s)
 	char	*cur_path;
 	char	*new_path;
 
+	g_vars.exit_status = 0;
 	new_path = NULL;
 	cur_path = getcwd(0, sizeof(cur_path));
 	add_pwd(cur_path, 1);
@@ -54,7 +56,6 @@ void	ft_cd(char **s)
 		new_path = getcwd(0, sizeof(new_path));
 		add_pwd(cur_path, 0);
 		add_pwd(new_path, 1);
-		free(new_path);
 	}
 	else if (!s[1])
 		null_arg(cur_path, new_path);
@@ -63,5 +64,6 @@ void	ft_cd(char **s)
 		g_vars.exit_status = 1;
 		perror("minishell: cd");
 	}
+	free(new_path);
 	free(cur_path);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/23 15:32:15 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/25 16:33:50 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	child(t_executer *ex)
 		if (is_builtins(ex->cmd->command))
 		{
 			exec_builtins(ex->cmd->command, ex->wr);
-			exit(0);
+			exit(g_vars.exit_status);
 		}
 		dup2(ex->rd, 0);
 		dup2(ex->wr, 1);
@@ -64,16 +64,15 @@ void	_exc(t_executer *executer, t_list *current, t_list *cmd_list)
 		handle_fd(executer);
 		cleanup_pipe_and_fds(executer, current);
 	}
+	++executer->i;
 }
-
 void	wait_child(t_list *cmd_list)
 {
-	int	i;
-	int	d;
+	int		i;
+	int		d;
+	t_list	*i_cmd;
 
 	i = 0;
-
-	t_list *i_cmd;
 	i_cmd = cmd_list;
 	while (i_cmd)
 	{
@@ -82,7 +81,7 @@ void	wait_child(t_list *cmd_list)
 			waitpid(g_vars.pid[i], &d, 0);
 			g_vars.exit_status = WEXITSTATUS(d);
 		}
-		i++; 	
+		i++;
 		i_cmd = i_cmd->next;
 	}
 }
@@ -96,7 +95,7 @@ int	executer(t_list *cmd_list)
 	if (open_redirection_and_heredocs(cmd_list))
 		return (1);
 	executer = malloc(sizeof(t_executer));
-	g_vars.pid = ft_calloc(sizeof(pid_t) , ft_lstsize(cmd_list));
+	g_vars.pid = ft_calloc(sizeof(pid_t), ft_lstsize(cmd_list));
 	executer->pipe_fd = ft_calloc(sizeof(int *), ft_lstsize(cmd_list) + 1);
 	executer->i = 0;
 	while (current)
@@ -104,14 +103,11 @@ int	executer(t_list *cmd_list)
 		executer->rd = 0;
 		executer->wr = 1;
 		executer->cmd = (t_command *)current->content;
-		if (executer->cmd->command && !executer->cmd->file_error)
-		{
+		if (executer->cmd->command && ft_strlen(executer->cmd->command[0])
+			&& !executer->cmd->file_error)
 			_exc(executer, current, cmd_list);
-			++executer->i;
-		}
 		current = current->next;
 	}
-	// if (!is_builtins(executer->cmd->command) || ft_lstsize(cmd_list) > 1)
 	wait_child(cmd_list);
 	cleanup(executer->pipe_fd);
 	return (free(executer), ft_free((void **)&g_vars.pid), 0);
