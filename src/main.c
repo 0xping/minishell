@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/22 17:22:43 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:27:25 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ int	main(int ac, char const *av[], char const *envp[])
 		// system("lsof minishell");
 	}
 	tcsetattr(0, TCSANOW, def_termios);
+	printf("exit\n");
+	exit(g_vars.exit_status);
 	return (0);
 }
