@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:14:22 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/25 16:43:01 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 10:13:10 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	print_export(int wr)
 
 void	ft_export(char **cmd, int wr)
 {
-	g_vars.exit_status = 0;;
+	g_vars.exit_status = 0;
 	if (cmd[1] == NULL)
 		print_export(wr);
 	else

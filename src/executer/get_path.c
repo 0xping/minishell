@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:47:18 by xshel             #+#    #+#             */
-/*   Updated: 2023/08/25 16:16:40 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 10:08:14 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	check_dir(char *s)
 
 char	*get_path(char **cmd)
 {
-	int j;
-	char **op;
-	char *path;
-	char *tmp;
+	int		j;
+	char	**op;
+	char	*path;
+	char	*tmp;
 
 	j = 0;
 	g_vars.exit_status = 0;
@@ -101,6 +101,5 @@ char	*get_path(char **cmd)
 	}
 	free_paths(op);
 	ft_putstr_fd("minishell : command not found\n", 2);
-	g_vars.exit_status = 127;
-	return (exit(127), NULL);
+	return (g_vars.exit_status = 127, exit(127), NULL);
 }

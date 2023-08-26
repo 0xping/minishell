@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 13:17:47 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/24 15:16:38 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 10:13:24 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	dupoin(t_export *exp, char **cmd, int j, long long lent)
 {
 	if (ft_strchr(cmd[j], '='))
 	{
-		exp->name = ft_substr(cmd[j], 0, lent - (lent && cmd[j][lent - 1] == '+'));
+		exp->name = ft_substr(cmd[j], 0, lent - (lent && cmd[j][lent
+					- 1] == '+'));
 		exp->value = ft_strdup(ft_strchr(cmd[j], '=') + 1);
 		exp->concat = (lent && cmd[j][lent - 1] == '+');
 	}

@@ -20,7 +20,7 @@ bool	is_n_option(char *str)
 	if (ft_strlen(str) <= 1)
 		return (false);
 	if (str[i] != '-')
-		return false;
+		return (false);
 	i++;
 	while (str[i] == 'n')
 		i++;
