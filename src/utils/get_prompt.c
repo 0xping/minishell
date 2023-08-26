@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:00:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 16:07:23 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:12:18 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,14 @@ char	*get_prompt(void)
 	cwd = get_cwd();
 	if (g_vars.exit_status == 0)
 	{
-		prompt = join_strings((char *[]){COLOR_GREEN "➜ " RESET_ALL TEXT_BOLD COLOR_BLUE,
-			cwd, RESET_ALL}, 3, " ");
+		prompt = join_strings((char *[]){COLOR_GREEN "➜ " RESET_ALL
+				TEXT_BOLD COLOR_BLUE,
+				cwd, RESET_ALL}, 3, " ");
 	}
 	else
-		prompt = join_strings((char *[]){COLOR_RED "➜ " RESET_ALL TEXT_BOLD COLOR_BLUE,
-			cwd, RESET_ALL}, 3, " ");
+		prompt = join_strings((char *[]){COLOR_RED "➜ " RESET_ALL
+				TEXT_BOLD COLOR_BLUE,
+				cwd, RESET_ALL}, 3, " ");
 	free(cwd);
 	return (prompt);
 }

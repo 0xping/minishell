@@ -6,16 +6,22 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 17:13:48 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/20 19:42:49 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:38:05 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
 
+bool	is_tk_operator(t_token_type tk)
+{
+	return (tk == TK_APPEND_OP || tk == TK_HEREDOC_OP || tk == TK_REDIRECT_IN_OP
+		|| tk == TK_REDIRECT_OUT_OP);
+}
+
 void	add_new_token(t_list **lst_tokens, char *token)
 {
-	t_token		*new_token;
-	token_type	prev_token;
+	t_token			*new_token;
+	t_token_type	prev_token;
 
 	prev_token = -1;
 	if (ft_lstsize(*lst_tokens))
@@ -31,14 +37,8 @@ void	add_new_token(t_list **lst_tokens, char *token)
 		new_token->type = TK_REDIRECT_OUT_OP;
 	else
 	{
-		if (prev_token == TK_APPEND_OP)
-			new_token->type = TK_APPEND_FILE;
-		else if (prev_token == TK_HEREDOC_OP)
-			new_token->type = TK_HEREDOC_DEL;
-		else if (prev_token == TK_REDIRECT_IN_OP)
-			new_token->type = TK_REDIRECT_IN_FILE;
-		else if (prev_token == TK_REDIRECT_OUT_OP)
-			new_token->type = TK_REDIRECT_OUT_FILE;
+		if (is_tk_operator(prev_token))
+			new_token->type = prev_token + 1;
 		else
 			new_token->type = TK_WORD;
 	}

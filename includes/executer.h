@@ -31,7 +31,6 @@ struct termios	*set_signal_printing(void);
 bool			is_builtins(char **cmd);
 char			*get_path(char **cmd);
 
-
 /*--------------------------exc_utils.c---------------------------------*/
 
 void			child(t_executer *ex);
