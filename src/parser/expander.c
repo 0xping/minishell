@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/25 15:19:23 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/27 13:20:05 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*expand_sq(char *word, bool is_heredoc)
 	if (is_heredoc)
 		data.content = expander(quote_content, is_heredoc);
 	else
-		data.content = quote_content;
+		data.content = ft_strdup(quote_content);
 	tmp = ft_strdup(ft_strchr(word, '\'') + ft_strlen(quote_content) + 2);
 	data.after = expander(tmp, is_heredoc);
 	ft_free((void **)&tmp);
