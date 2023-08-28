@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/25 21:13:56 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:08:30 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,45 +40,52 @@
 
 t_global	g_vars;
 
-void	init_global_vars(const char *envp[])
+void	init(const char *envp[])
 {
 	g_vars.exit_status = 0;
 	g_vars.heredoc_sig = 0;
 	g_vars.env = create_env_list(envp);
 	set_global_envp();
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	clean_input(char **input)
+{
+	char	*trim;
+	char	*spread;
+
+	trim = ft_strtrim(*input, " \n\v\f\r\t");
+	spread = spread_tokens(trim);
+	ft_free((void **)&trim);
+	ft_free((void **)input);
+	*input = spread;
+}
+
+char	*_readline(char **input_ptr)
+{
+	char	*prompt;
+
+	prompt = get_prompt();
+	*input_ptr = readline(prompt);
+	ft_free((void **)&prompt);
+	return (*input_ptr);
 }
 
 int	main(int ac, char const *av[], char const *envp[])
 {
 	char			*input;
 	t_list			*commands;
-	char			*tmp;
-	char			*prompt;
 	struct termios	*def_termios;
 
 	ac += 0;
 	av += 0;
-	init_global_vars(envp);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	init(envp);
 	def_termios = set_signal_printing();
-	while (1)
+	while (_readline(&input))
 	{
-		prompt = get_prompt();
-		input = readline(prompt);
-		ft_free((void **)&prompt);
-		if (!input || *input)
-		{
-			if (!input)
-				break ;
-			add_history(input);
-		}
-		tmp = ft_strtrim(input, " \n\v\f\r\t");
-		ft_free((void **)&input);
-		input = tmp;
-		tmp = spread_tokens(input);
-		ft_free((void **)&input);
-		input = tmp;
+		(*input) && (add_history(input), 1);
+		clean_input(&input);
 		if (!input[0])
 		{
 			ft_free((void **)&input);
@@ -90,7 +97,5 @@ int	main(int ac, char const *av[], char const *envp[])
 		ft_free((void **)&input);
 	}
 	tcsetattr(0, TCSANOW, def_termios);
-	printf("exit\n");
-	exit(g_vars.exit_status);
-	return (0);
+	return (printf("exit\n"), exit(g_vars.exit_status), 0);
 }

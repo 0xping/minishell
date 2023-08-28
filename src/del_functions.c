@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 19:32:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/17 16:58:48 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:13:45 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	del_env(void *content)
 	t_env	*env;
 
 	env = (t_env *)content;
-	;
 	ft_free((void **)&env);
 }
 

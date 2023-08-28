@@ -30,5 +30,4 @@ void	ft_pwd(void)
 		ft_putendl_fd(path, 1);
 		free(path);
 	}
-
 }

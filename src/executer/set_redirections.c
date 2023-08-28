@@ -6,13 +6,13 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/16 16:53:13 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/26 18:28:51 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
 
-static int	get_oflag(red_type type)
+static int	get_oflag(t_red_type type)
 {
 	int	oflag;
 
@@ -26,10 +26,9 @@ static int	get_oflag(red_type type)
 	return (oflag);
 }
 
-static int	open_file(t_file *file, int **fd)
+int	get_file_fd(t_file *file)
 {
-	int		file_fd;
-	char	*err_prompt;
+	int	file_fd;
 
 	if (!ft_strcmp(file->name, "/dev/stdin"))
 		file_fd = 0;
@@ -39,6 +38,15 @@ static int	open_file(t_file *file, int **fd)
 		file_fd = 2;
 	else
 		file_fd = open(file->name, get_oflag(file->type), 0644);
+	return (file_fd);
+}
+
+static int	open_file(t_file *file, int **fd)
+{
+	int		file_fd;
+	char	*err_prompt;
+
+	file_fd = get_file_fd(file);
 	if (file_fd == -1)
 	{
 		err_prompt = ft_strjoin("minishell: ", file->name);
