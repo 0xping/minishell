@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/25 17:55:51 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:19:24 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,26 @@ void	add_pwd(char *s, int n)
 		upsert_env_node(ft_strdup("PWD"), ft_strdup(s), 0);
 }
 
-void	null_arg(char *cur_path, char *new_path)
+void	null_arg(char *cur_path)
 {
 	char	*home;
+	char	*new_path;
 
+	new_path = 0;
 	home = expander("$HOME", false);
 	if (chdir(home) == 0)
 	{
-		ft_free((void **)&home);
-		new_path = getcwd(new_path, sizeof(new_path));
+		new_path = getcwd(0, 0);
 		add_pwd(cur_path, 0);
 		add_pwd(new_path, 1);
 	}
 	else
 	{
-		ft_free((void **)&home);
 		g_vars.exit_status = 1;
 		perror("minishell: cd");
 	}
+	ft_free((void **)&new_path);
+	ft_free((void **)&home);
 }
 
 void	ft_cd(char **s)
@@ -58,9 +60,10 @@ void	ft_cd(char **s)
 		add_pwd(new_path, 1);
 	}
 	else if (!s[1])
-		null_arg(cur_path, new_path);
+		null_arg(cur_path);
 	else
 	{
+		printf("errrrrrr\n");
 		g_vars.exit_status = 1;
 		perror("minishell: cd");
 	}

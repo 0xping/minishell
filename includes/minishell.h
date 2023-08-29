@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 21:33:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 18:32:45 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/28 16:08:54 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_global
 	int				exit_status;
 	int				heredoc_sig;
 	pid_t			*pid;
+	int				is_child;
 	t_list			*env;
 	const char		**envp;
 }					t_global;

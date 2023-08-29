@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:47:18 by xshel             #+#    #+#             */
-/*   Updated: 2023/08/26 10:08:14 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:23:16 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**get_lines(void)
 	path_env = get_env_by_name("PATH");
 	if (!path_env)
 	{
-		ft_putstr_fd("minishell : command not found\n", 2);
+		perror("minishell :");
 		g_vars.exit_status = 127;
 		exit(127);
 	}

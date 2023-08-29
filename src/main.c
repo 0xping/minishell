@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 18:08:30 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/28 18:00:08 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ void	init(const char *envp[])
 {
 	g_vars.exit_status = 0;
 	g_vars.heredoc_sig = 0;
+	g_vars.is_child = 0;
 	g_vars.env = create_env_list(envp);
 	set_global_envp();
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, sigquit_handler);
 }
 
 void	clean_input(char **input)

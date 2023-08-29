@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <m-boukel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 10:11:01 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/08/29 14:55:21 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	child(t_executer *ex)
 	g_vars.pid[ex->i] = fork();
 	if (g_vars.pid[ex->i] == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		if (is_builtins(ex->cmd->command))
 		{
 			exec_builtins(ex->cmd->command, ex->wr);
@@ -44,13 +45,10 @@ void	child(t_executer *ex)
 			close(ex->pipe_fd[ex->i][0]);
 			close(ex->pipe_fd[ex->i][1]);
 		}
-		if (!is_builtins(ex->cmd->command))
-		{
-			execve(get_path(ex->cmd->command), ex->cmd->command,
-				(char **)g_vars.envp);
-			perror("execve");
-			exit(1);
-		}
+		execve(get_path(ex->cmd->command), ex->cmd->command,
+			(char **)g_vars.envp);
+		perror("execve");
+		exit(1);
 	}
 }
 
@@ -75,16 +73,20 @@ void	wait_child(t_list *cmd_list)
 
 	i = 0;
 	i_cmd = cmd_list;
+	g_vars.is_child = 1;
 	while (i_cmd)
 	{
 		if (g_vars.pid[i])
 		{
+			g_vars.exit_status = 0;
 			waitpid(g_vars.pid[i], &d, 0);
-			g_vars.exit_status = WEXITSTATUS(d);
+			if (g_vars.exit_status != 130 && g_vars.exit_status != 131)
+				g_vars.exit_status = WEXITSTATUS(d);
 		}
 		i++;
 		i_cmd = i_cmd->next;
 	}
+	g_vars.is_child = 0;
 }
 
 int	executer(t_list *cmd_list)

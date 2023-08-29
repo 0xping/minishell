@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:04:37 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/25 21:14:19 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:55:24 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,42 @@
 
 void	sig_handler(int sig)
 {
-	if (sig == SIGINT)
+	char	*prmpt;
+
+	g_vars.exit_status = 130;
+	if (sig == SIGINT && !g_vars.is_child)
 	{
 		ft_putstr_fd("\n", 1);
 		rl_replace_line("", 0);
-		rl_on_new_line();
 		rl_redisplay();
-		g_vars.exit_status = 130;
+		prmpt = get_prompt();
+		printf("%s", prmpt);
+		free(prmpt);
 	}
+}
+
+void	sigquit_handler(int sig)
+{
+	char	*prmpt;
+
+	sig += 0;
+	if (g_vars.is_child && g_vars.pid)
+		g_vars.exit_status = 131;
+	else
+	{
+		prmpt = get_prompt();
+		printf("%s%s", prmpt, rl_line_buffer);
+		free(prmpt);
+	}
+}
+
+void	heredoc_sigint_handler(int sigint)
+{
+	close(0);
+	g_vars.heredoc_sig = 1;
+	g_vars.exit_status = 130;
+	printf("\n");
+	(void)sigint;
 }
 
 struct termios	*set_signal_printing(void)
