@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/29 15:44:29 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:38:04 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	cleanup(int **pipe_fd)
 
 void	child(t_executer *ex)
 {
+	int	nil;
+
 	g_vars.pid[ex->i] = fork();
 	if (g_vars.pid[ex->i] == 0)
 	{
@@ -38,8 +40,8 @@ void	child(t_executer *ex)
 		}
 		dup2(ex->rd, 0);
 		dup2(ex->wr, 1);
-		(ex->rd) && (close(ex->rd), 1);
-		(ex->wr != 1) && (close(ex->wr), 1);
+		nil = ((ex->rd) && (close(ex->rd), 1));
+		nil = ((ex->wr != 1) && (close(ex->wr), 1));
 		if (ex->pipe_fd[ex->i])
 		{
 			close(ex->pipe_fd[ex->i][0]);

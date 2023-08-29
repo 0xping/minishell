@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 15:46:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/28 18:00:08 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:36:07 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	main(int ac, char const *av[], char const *envp[])
 	def_termios = set_signal_printing();
 	while (_readline(&input))
 	{
-		(*input) && (add_history(input), 1);
+		if (*input)
+			add_history(input);
 		clean_input(&input);
 		if (!input[0])
 		{
