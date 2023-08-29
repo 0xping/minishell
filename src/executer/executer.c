@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/29 14:55:21 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:38:46 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	cleanup(int **pipe_fd)
 	}
 	free(pipe_fd);
 }
+
 
 void	child(t_executer *ex)
 {
