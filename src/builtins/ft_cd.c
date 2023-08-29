@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/29 15:19:24 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:41:27 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_cd(char **s)
 		null_arg(cur_path);
 	else
 	{
-		printf("errrrrrr\n");
 		g_vars.exit_status = 1;
 		perror("minishell: cd");
 	}

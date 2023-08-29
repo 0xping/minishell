@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 03:00:04 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/29 14:57:13 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:42:00 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_pwd(void)
 		ft_putendl_fd(get_env_by_name("PWD")->value, 1);
 	else
 	{
-		printf("path : %p \n", path);
 		ft_putendl_fd(path, 1);
 		free(path);
 	}

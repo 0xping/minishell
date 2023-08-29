@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:00:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/29 15:21:16 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:42:33 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*g_path(void)
 		return (path);
 	if (get_env_by_name("PWD"))
 		return (ft_strdup(get_env_by_name("PWD")->value));
-	return (ft_strdup(""));
+	return (0);
 }
 
 char	*get_cwd(void)
