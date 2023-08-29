@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:20:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/25 16:31:05 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:48:30 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int				executer(t_list *cmd_list);
 void			set_redirections(t_list *cmd_list);
 void			set_heredocs(t_list *cmd_list);
 void			check_16_heredocs(t_list *cmd_list);
-void			sig_handler(int sig);
 struct termios	*set_signal_printing(void);
 bool			is_builtins(char **cmd);
 char			*get_path(char **cmd);
@@ -41,6 +40,10 @@ void			setup_pipe_and_fds(t_executer *executer, t_list *current);
 void			handle_fd(t_executer *executer);
 void			cleanup_pipe_and_fds(t_executer *executer, t_list *current);
 
-/*----------------------------------------------------------------------*/
+/*--------------------------- signals --------------------------*/
+
+void			sig_handler(int sig);
+void			sigquit_handler(int sig);
+void			heredoc_sigint_handler(int sigint);
 
 #endif

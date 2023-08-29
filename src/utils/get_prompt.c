@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:00:14 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 18:12:18 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:21:16 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*g_path(void)
 		return (path);
 	if (get_env_by_name("PWD"))
 		return (ft_strdup(get_env_by_name("PWD")->value));
-	return (0);
+	return (ft_strdup(""));
 }
 
 char	*get_cwd(void)
@@ -33,7 +33,7 @@ char	*get_cwd(void)
 	path = g_path();
 	home_env = get_env_by_name("HOME");
 	result = 0;
-	if (char_count(path, '/') == 1 || char_count(path, '.'))
+	if (char_count(path, '/') == 1)
 		return (path);
 	else
 	{
@@ -43,7 +43,8 @@ char	*get_cwd(void)
 			return (ft_strdup("~"));
 		}
 	}
-	result = ft_strdup(ft_strrchr(path, '/') + 1);
+	if (ft_strrchr(path, '/'))
+		result = ft_strdup(ft_strrchr(path, '/') + 1);
 	free(path);
 	return (result);
 }
@@ -57,13 +58,11 @@ char	*get_prompt(void)
 	if (g_vars.exit_status == 0)
 	{
 		prompt = join_strings((char *[]){COLOR_GREEN "➜ " RESET_ALL
-				TEXT_BOLD COLOR_BLUE,
-				cwd, RESET_ALL}, 3, " ");
+				TEXT_BOLD COLOR_BLUE, cwd, RESET_ALL}, 3, " ");
 	}
 	else
 		prompt = join_strings((char *[]){COLOR_RED "➜ " RESET_ALL
-				TEXT_BOLD COLOR_BLUE,
-				cwd, RESET_ALL}, 3, " ");
+				TEXT_BOLD COLOR_BLUE, cwd, RESET_ALL}, 3, " ");
 	free(cwd);
 	return (prompt);
 }

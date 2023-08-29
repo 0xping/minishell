@@ -6,20 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:38:51 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/24 14:58:01 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:53:20 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
-
-void	heredoc_sigint_handler(int sigint)
-{
-	close(0);
-	g_vars.heredoc_sig = 1;
-	g_vars.exit_status = 130;
-	printf("\n");
-	(void)sigint;
-}
 
 char	*get_heredoc_filename(char *del, int index)
 {
@@ -28,43 +19,53 @@ char	*get_heredoc_filename(char *del, int index)
 
 	index_as_str = char_to_str(index + '0');
 	filename = join_strings((char *[]){"/tmp/", del, index_as_str,
-		ft_strrchr(ttyname(1), '/') + 1}, 4, "");
+			ft_strrchr(ttyname(1), '/') + 1}, 4, "");
 	ft_free((void **)&index_as_str);
 	return (filename);
 }
 
-static char	*create_heredoc_file(t_file *file, int index)
+typedef struct s_heredoc_data
 {
 	char	*file_name;
 	int		fd;
 	char	*line;
-	char	*tmp;
 	char	*del;
+}			t_heredoc_data;
 
-	del = remove_quotes(file->name);
-	file_name = get_heredoc_filename(del, index);
-	fd = open(file_name, O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0644);
-	line = 0;
-	while ((!line || ft_strcmp(line, del)) && !g_vars.heredoc_sig)
+static void	init_heredoc_dt(t_heredoc_data *dt, t_file *file, int index)
+{
+	dt->del = remove_quotes(file->name);
+	dt->file_name = get_heredoc_filename(dt->del, index);
+	dt->fd = open(dt->file_name, O_RDWR | O_CREAT | O_APPEND | O_TRUNC, 0644);
+	dt->line = 0;
+}
+
+static char	*create_heredoc_file(t_file *file, int index)
+{
+	t_heredoc_data	dt;
+	char			*tmp;
+
+	init_heredoc_dt(&dt, file, index);
+	while ((!dt.line || ft_strcmp(dt.line, dt.del)) && !g_vars.heredoc_sig)
 	{
-		ft_free((void **)&line);
-		line = readline(">");
-		if (line == 0)
-			break;
-		if (ft_strcmp(line, del))
+		ft_free((void **)&dt.line);
+		dt.line = readline(">");
+		if (dt.line == 0)
+			break ;
+		if (ft_strcmp(dt.line, dt.del))
 		{
 			if (!ft_strchr(file->name, '"') && !ft_strchr(file->name, '\''))
 			{
-				tmp = expander(line, true);
-				ft_putendl_fd(tmp, fd);
+				tmp = expander(dt.line, true);
+				ft_putendl_fd(tmp, dt.fd);
 				ft_free((void **)&tmp);
 			}
 			else
-				ft_putendl_fd(line, fd);
+				ft_putendl_fd(dt.line, dt.fd);
 		}
 	}
-	return (close(fd), ft_free((void **)&line), ft_free((void **)&del),
-		ft_free((void **)&file->name), (file->name = file_name));
+	return (close(dt.fd), ft_free((void **)&dt.line), ft_free((void **)&dt.del),
+		ft_free((void **)&file->name), (file->name = dt.file_name));
 }
 
 void	set_heredocs(t_list *cmd_list)
