@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/29 15:41:27 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:35:28 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,25 @@ void	null_arg(char *cur_path)
 	ft_free((void **)&home);
 }
 
+int	to_many_args(char **s)
+{
+	if (s[2])
+	{
+		ft_putendl_fd("minishell: cd: too many arguments", 2);
+		g_vars.exit_status = 1;
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_cd(char **s)
 {
 	char	*cur_path;
 	char	*new_path;
 
 	g_vars.exit_status = 0;
+	if (to_many_args(s))
+		return ;
 	new_path = NULL;
 	cur_path = getcwd(0, 0);
 	add_pwd(cur_path, 1);
