@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 21:33:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/28 16:08:54 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:35:53 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_command
 typedef struct s_token
 {
 	char			*value;
+	bool			is_expanded;
 	t_token_type	type;
 }					t_token;
 

@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 19:32:35 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 18:13:45 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:49:16 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ void	del_files(void *content)
 void	del_command(void *content)
 {
 	t_command	*commands;
+	int			i;
 
+	i = 0;
 	commands = (t_command *)content;
 	ft_lstclear(&commands->lst_tokens, del_tokens);
 	ft_lstclear(&commands->files, del_files);
 	ft_free((void **)&commands->value);
+	while (commands->command && commands->command[i])
+		ft_free((void **)&commands->command[i++]);
 	ft_free((void **)&commands->command);
 	ft_free((void **)&commands->fd);
 	ft_free((void **)&commands);

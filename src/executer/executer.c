@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/29 19:38:04 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:53:43 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ int	executer(t_list *cmd_list)
 		executer->rd = 0;
 		executer->wr = 1;
 		executer->cmd = (t_command *)current->content;
-		if (executer->cmd->command && ft_strlen(executer->cmd->command[0])
-			&& !executer->cmd->file_error)
+		if (executer->cmd->command && !executer->cmd->file_error)
 			_exc(executer, current, cmd_list);
 		current = current->next;
 	}

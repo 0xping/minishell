@@ -6,11 +6,21 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 18:08:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/28 19:41:20 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:48:33 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
+
+void	expand_single_token(t_token *token)
+{
+	char	*tmp;
+
+	tmp = token->value;
+	token->value = expander(tmp, false);
+	token->is_expanded = ft_strcmp(token->value, tmp);
+	free(tmp);
+}
 
 char	*get_value(char *name, int *len)
 {

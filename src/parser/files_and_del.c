@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:05:36 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 18:17:17 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:37:44 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,33 @@ t_file	*init_file(char *name, t_red_type type)
 	file->name = ft_strdup(name);
 	file->type = type;
 	return (file);
+}
+
+static void	push_words_to_cmd(t_command *cmd, t_token *token)
+{
+	char	*no_quotes;
+	char	**sp;
+	int		i;
+
+	no_quotes = remove_quotes(token->value);
+	i = 0;
+	if (token->is_expanded)
+	{
+		if (ft_strlen(no_quotes))
+		{
+			sp = split_quote_safe(no_quotes, "\t\n\v\f\r ", 0);
+			while (sp[i])
+				push_str(&cmd->command, sp[i++]);
+			free(no_quotes);
+			free(sp);
+		}
+		else if (ft_strcmp(no_quotes, token->value))
+			push_str(&cmd->command, no_quotes);
+		else
+			free(no_quotes);
+	}
+	else
+		push_str(&cmd->command, no_quotes);
 }
 
 void	collect_files_and_delimiters(t_command *cmd)
@@ -44,7 +71,7 @@ void	collect_files_and_delimiters(t_command *cmd)
 			ft_lstadd_back(&cmd->files, ft_lstnew(init_file(token->value,
 						RED_HEREDOC)));
 		if (token->type == TK_WORD)
-			push_str(&cmd->command, token->value);
+			push_words_to_cmd(cmd, token);
 		lst_token = lst_token->next;
 	}
 }

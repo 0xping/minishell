@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/29 19:35:28 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:00:22 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	add_pwd(char *s, int n)
 {
 	if (s == 0)
-		s = "";
+		return ;
 	if (n == 0)
 		upsert_env_node(ft_strdup("OLDPWD"), ft_strdup(s), 0);
 	else if (n == 1)
@@ -46,7 +46,12 @@ void	null_arg(char *cur_path)
 
 int	to_many_args(char **s)
 {
-	if (s[2])
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	if (i > 2)
 	{
 		ft_putendl_fd("minishell: cd: too many arguments", 2);
 		g_vars.exit_status = 1;
