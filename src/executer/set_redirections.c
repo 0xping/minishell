@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/26 18:28:51 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:45:20 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	set_redirections(t_list *cmd_list)
 	t_list		*j_list;
 
 	i_list = cmd_list;
+	g_vars.exit_status = 0;
 	while (i_list)
 	{
 		cmd = (t_command *)i_list->content;
