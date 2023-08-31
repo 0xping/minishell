@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 08:47:18 by xshel             #+#    #+#             */
-/*   Updated: 2023/08/31 20:09:32 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/08/01 08:47:18 by m-boukel          #+#    #+#             */
+/*   Updated: 2023/08/31 20:49:12 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,16 @@ char	**get_lines(void)
 	return (paths);
 }
 
-void	check_cmd(char *cmd, char **op)
+void	check_cmd(char *cmd)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < (int)ft_strlen(cmd))
 	{
 		if (cmd[i] == '/' || cmd[0] == '.')
 		{
-			while (op[j])
-				free(op[j++]);
+			perror("minishell");
 			g_vars.exit_status = 127;
 			exit(127);
 		}
@@ -88,7 +85,7 @@ char	*get_path(char **cmd)
 		if (access(cmd[0], X_OK) == 0)
 			return (cmd[0]);
 		op = get_lines();
-		check_cmd(cmd[0], op);
+		check_cmd(cmd[0]);
 		while (op[j])
 		{
 			path = join_strings((char *[]){op[j], "/", cmd[0]}, 3, "");
