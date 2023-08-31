@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 14:52:21 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/31 17:54:17 by aait-lfd         ###   ########.fr       */
+/*   Created: 2023/08/31 20:13:10 by m-boukel          #+#    #+#             */
+/*   Updated: 2023/08/31 20:14:02 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	child(t_executer *ex)
 		}
 		execve(get_path(ex->cmd->command), ex->cmd->command,
 			(char **)g_vars.envp);
-		perror("execve");
+		perror("minishell: ");
 		exit(1);
 	}
 }
