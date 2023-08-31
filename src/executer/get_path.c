@@ -6,12 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 08:47:18 by xshel             #+#    #+#             */
-/*   Updated: 2023/08/28 21:23:16 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:09:32 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
-#include <dirent.h>
 
 char	**get_lines(void)
 {
@@ -80,26 +79,26 @@ char	*get_path(char **cmd)
 	int		j;
 	char	**op;
 	char	*path;
-	char	*tmp;
 
 	j = 0;
 	g_vars.exit_status = 0;
-	check_dir(cmd[0]);
-	if (access(cmd[0], X_OK) == 0)
-		return (cmd[0]);
-	op = get_lines();
-	check_cmd(cmd[0], op);
-	while (op[j])
+	if (ft_strlen(cmd[0]))
 	{
-		tmp = ft_strjoin(op[j], "/");
-		path = ft_strjoin(tmp, cmd[0]);
-		free(tmp);
-		if (access(path, X_OK) != -1)
-			return (free_paths(op), path);
-		free(path);
-		j++;
+		check_dir(cmd[0]);
+		if (access(cmd[0], X_OK) == 0)
+			return (cmd[0]);
+		op = get_lines();
+		check_cmd(cmd[0], op);
+		while (op[j])
+		{
+			path = join_strings((char *[]){op[j], "/", cmd[0]}, 3, "");
+			if (access(path, X_OK) != -1)
+				return (free_paths(op), path);
+			free(path);
+			j++;
+		}
+		free_paths(op);
 	}
-	free_paths(op);
-	ft_putstr_fd("minishell : command not found\n", 2);
+	ft_putstr_fd("minishell: command not found\n", 2);
 	return (g_vars.exit_status = 127, exit(127), NULL);
 }
