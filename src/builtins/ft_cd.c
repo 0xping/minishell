@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:37:53 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/30 20:00:22 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/08/31 17:47:20 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_cd(char **s)
 	char	*new_path;
 
 	g_vars.exit_status = 0;
-	if (to_many_args(s))
+	if (to_many_args(s) || (s[1] && !ft_strlen(s[1])))
 		return ;
 	new_path = NULL;
 	cur_path = getcwd(0, 0);
