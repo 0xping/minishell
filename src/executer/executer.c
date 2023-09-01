@@ -6,7 +6,7 @@
 /*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:13:10 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/08/31 20:14:02 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:50:53 by m-boukel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ void	wait_child(t_list *cmd_list)
 		{
 			g_vars.exit_status = 0;
 			waitpid(g_vars.pid[i], &d, 0);
-			if (g_vars.exit_status != 130 && g_vars.exit_status != 131)
-				g_vars.exit_status = WEXITSTATUS(d);
+			if (g_vars.exit_status == 130 || g_vars.exit_status == 131)
+				break ;
+			g_vars.exit_status = WEXITSTATUS(d);
 		}
 		i++;
 		i_cmd = i_cmd->next;
