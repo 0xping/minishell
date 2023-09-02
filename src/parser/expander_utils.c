@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 18:08:31 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/30 19:48:33 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/09/01 21:22:05 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_value(char *name, int *len)
 	*len = i + ft_isdigit(name[i]);
 	var_name = ft_substr(name, 0, i);
 	env_node = get_env_by_name(var_name);
-	if (env_node)
+	if (env_node && env_node->value)
 		return (ft_free((void **)&var_name), ft_strdup(env_node->value));
 	return (ft_free((void **)&var_name), ft_strdup(""));
 }
