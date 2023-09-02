@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/30 19:45:20 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:20:57 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	open_file(t_file *file, int **fd)
 void	set_redirections(t_list *cmd_list)
 {
 	t_command	*cmd;
-	t_file		*file;
 	t_list		*i_list;
 	t_list		*j_list;
 
@@ -85,13 +84,15 @@ void	set_redirections(t_list *cmd_list)
 		cmd->fd[0] = 0;
 		cmd->fd[1] = 1;
 		j_list = cmd->files;
-		while (j_list)
+		while (j_list && !cmd->file_error)
 		{
-			file = (t_file *)j_list->content;
-			if (!cmd->file_error)
-				cmd->file_error = open_file(file, &cmd->fd);
-			if (cmd->file_error)
+			if (!((t_file *)j_list->content)->name)
+			{
+				cmd->file_error = 1;
+				throw_error("ambiguous redirect", 1);
 				break ;
+			}
+			cmd->file_error = open_file((t_file *)j_list->content, &cmd->fd);
 			j_list = j_list->next;
 		}
 		i_list = i_list->next;

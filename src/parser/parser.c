@@ -6,30 +6,11 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 22:25:59 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/30 17:18:59 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:22:58 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/inc.h"
-
-static int	is_ambiguous(char *s)
-{
-	char	**sp;
-	int		i;
-
-	sp = split_quote_safe(s, "\t\n\v\f\r ", 0);
-	i = 0;
-	while (sp[i])
-		free(sp[i++]);
-	free(sp);
-	return (i > 1 || !ft_strlen(s));
-}
-
-static int	is_file_tk(t_token_type tk_type)
-{
-	return ((tk_type == TK_APPEND_FILE || tk_type == TK_REDIRECT_IN_FILE
-			|| tk_type == TK_REDIRECT_OUT_FILE));
-}
 
 static void	expand_tokens(t_command *cmd)
 {
@@ -41,15 +22,7 @@ static void	expand_tokens(t_command *cmd)
 	{
 		token = (t_token *)lst_token->content;
 		if (token->type != TK_HEREDOC_DEL)
-		{
 			expand_single_token(token);
-			if (is_file_tk(token->type) && token->is_expanded
-				&& is_ambiguous(token->value))
-			{
-				throw_error("ambiguous redirect", 1);
-				cmd->file_error = 1;
-			}
-		}
 		lst_token = lst_token->next;
 	}
 }
@@ -86,7 +59,6 @@ int	parser(t_list *cmd_list)
 	{
 		cmd_node = (t_command *)cmd_i->content;
 		expand_tokens(cmd_node);
-		remove_quotes_from_tk(cmd_node);
 		collect_files_and_delimiters(cmd_node);
 		cmd_i = cmd_i->next;
 	}
