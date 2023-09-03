@@ -10,7 +10,7 @@ BOLD = \033[1m
 # Compiler and flags
 CC = cc
 CFLAGS = -Wall -Wextra -Werror #-fsanitize=address
-LDFLAGS = -lreadline -L$(shell brew --prefix readline)/lib
+LDFLAGS = -lreadline #-L$(shell brew --prefix readline)/lib
 
 # Target name
 NAME = minishell
@@ -26,9 +26,9 @@ all : $(NAME)
 
 $(LIBFT) : $(wildcard ./lib/libft/*.c)
 	@echo "$(GREEN)\n⌛ Compiling libft ...$(END)"
-	@make -C ./lib/libft
-	@make -C ./lib/libft bonus
-	@make -C ./lib/libft clean
+	@make -sC ./lib/libft
+	@make -sC ./lib/libft bonus
+	@make -sC ./lib/libft clean
 
 $(NAME): $(SRC) $(LIB)
 	@echo "$(GREEN)⌛ Compiling $(NAME) ...$(END)"
@@ -44,13 +44,13 @@ start :
 clean :
 	@echo "$(RED)\n⌛ removing object files ...$(END)"
 	@rm -rf $(OBJ)
-	@make -C  ./lib/libft clean
+	@make -sC  ./lib/libft clean
 	@echo "$(RED)🗑️  objects removed \n$(END)"
 
 fclean : clean
 	@echo "$(RED)\n⌛ removing $(NAME) ...$(END)"
 	@rm -rf $(NAME)
-	@make -C  ./lib/libft fclean
+	@make -sC  ./lib/libft fclean
 	@echo "$(RED)🗑️  $(NAME) removed \n$(END)"
 
 re : fclean all
