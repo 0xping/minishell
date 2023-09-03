@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:32:30 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/09/03 15:52:54 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:40:35 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ static int	open_file(t_file *file, int **fd)
 	{
 		err_prompt = ft_strjoin("minishell: ", file->name);
 		perror(err_prompt);
-		ft_free((void **)&err_prompt);
 		g_vars.exit_status = 1;
-		return (1);
+		return (ft_free((void **)&err_prompt), 1);
 	}
 	if (file->type == RED_IN || file->type == RED_HEREDOC)
 	{
