@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 17:05:36 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/09/02 17:12:43 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:00:09 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ t_file	*init_file(t_token *token, t_red_type type)
 	t_file	*file;
 
 	file = ft_calloc(1, sizeof(t_file));
-	file->name = get_file_name(token);
+	if (type == RED_HEREDOC)
+		file->name = ft_strdup(token->value);
+	else
+		file->name = get_file_name(token);
 	file->type = type;
 	return (file);
 }
