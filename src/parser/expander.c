@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:39:25 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/28 19:41:08 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:38:18 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ char	*expander(char *word, bool is_heredoc)
 	i = 0;
 	while (word[i])
 	{
-		if (word[i] == '$' && word[i + 1])
+		if (is_heredoc)
+			return (_expander(word, is_heredoc));
+		else if (word[i] == '$' && word[i + 1])
 			return (expand_dollar(word, false, is_heredoc));
-		if (word[i] == '\'')
+		else if (word[i] == '\'' && ft_strchr(word + i + 1, word[i]))
 			return (expand_sq(word, is_heredoc));
-		if (word[i] == '"')
+		else if (word[i] == '"' && ft_strchr(word + i + 1, word[i]))
 			return (expand_dq(word));
 		i++;
 	}
