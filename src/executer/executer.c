@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m-boukel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:13:10 by m-boukel          #+#    #+#             */
-/*   Updated: 2023/09/01 15:50:53 by m-boukel         ###   ########.fr       */
+/*   Updated: 2023/09/11 02:21:00 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	child(t_executer *ex)
 		}
 		dup2(ex->rd, 0);
 		dup2(ex->wr, 1);
-		((ex->rd) && (close(ex->rd), 1));
-		((ex->wr != 1) && (close(ex->wr), 1));
+		(void)((ex->rd) && (close(ex->rd)));
+		(void)((ex->wr != 1) && (close(ex->wr)));
 		if (ex->pipe_fd[ex->i])
 		{
 			close(ex->pipe_fd[ex->i][0]);
