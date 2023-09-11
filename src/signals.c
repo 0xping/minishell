@@ -6,7 +6,7 @@
 /*   By: aait-lfd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:04:37 by aait-lfd          #+#    #+#             */
-/*   Updated: 2023/08/28 19:55:24 by aait-lfd         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:31:17 by aait-lfd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 		prmpt = get_prompt();
-		printf("%s", prmpt);
+		printf("\r%s", prmpt);
 		free(prmpt);
 	}
 }
@@ -37,8 +37,9 @@ void	sigquit_handler(int sig)
 		g_vars.exit_status = 131;
 	else
 	{
+		rl_redisplay();
 		prmpt = get_prompt();
-		printf("%s%s", prmpt, rl_line_buffer);
+		printf("\r%s%s",prmpt, rl_line_buffer);
 		free(prmpt);
 	}
 }
